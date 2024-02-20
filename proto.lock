@@ -48691,12 +48691,12 @@
           }
         ],
         "package": {
-          "name": "istio.telemetry.v1alpha1"
+          "name": "istio.telemetry.v1"
         },
         "options": [
           {
             "name": "go_package",
-            "value": "istio.io/api/telemetry/v1alpha1"
+            "value": "istio.io/api/telemetry/v1"
           }
         ]
       }
@@ -49116,12 +49116,12 @@
           }
         ],
         "package": {
-          "name": "istio.telemetry.v1"
+          "name": "istio.telemetry.v1alpha1"
         },
         "options": [
           {
             "name": "go_package",
-            "value": "istio.io/api/telemetry/v1"
+            "value": "istio.io/api/telemetry/v1alpha1"
           }
         ]
       }

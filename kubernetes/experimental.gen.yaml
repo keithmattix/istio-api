@@ -8230,13 +8230,8 @@ spec:
       openAPIV3Schema:
         properties:
           spec:
-            description: <!-- crd generation tags +cue-gen:Telemetry:groupName:telemetry.istio.io
-              +cue-gen:Telemetry:version:v1 +cue-gen:Telemetry:storageVersion +cue-gen:Telemetry:annotations:helm.sh/resource-policy=keep
-              +cue-gen:Telemetry:labels:app=istio-pilot,chart=istio,istio=telemetry,heritage=Tiller,release=istio
-              +cue-gen:Telemetry:subresource:status +cue-gen:Telemetry:scope:Namespaced
-              +cue-gen:Telemetry:resource:categories=istio-io,telemetry-istio-io,shortNames=telemetry,plural=telemetries
-              +cue-gen:Telemetry:preserveUnknownFields:false +cue-gen:Telemetry:printerColumn:name=Age,type=date,JSONPath=.metadata.creationTimestamp,description="CreationTimestamp
-              is a timestamp representing the server time when this object was created.
+            description: 'Telemetry configuration for workloads. See more details
+              at: https://istio.io/docs/reference/config/telemetry.html'
             properties:
               accessLogging:
                 description: Optional.
@@ -8519,7 +8514,7 @@ spec:
             x-kubernetes-preserve-unknown-fields: true
         type: object
     served: true
-    storage: true
+    storage: false
     subresources:
       status: {}
   - additionalPrinterColumns:
@@ -8820,6 +8815,6 @@ spec:
             x-kubernetes-preserve-unknown-fields: true
         type: object
     served: true
-    storage: false
+    storage: true
     subresources:
       status: {}

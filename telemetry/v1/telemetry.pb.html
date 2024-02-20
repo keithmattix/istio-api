@@ -4,8 +4,8 @@ description: Telemetry configuration for workloads.
 location: https://istio.io/docs/reference/config/telemetry.html
 layout: protoc-gen-docs
 generator: protoc-gen-docs
-schema: istio.telemetry.v1alpha1.Telemetry
-aliases: [/docs/reference/config/telemetry/v1alpha1/telemetry]
+schema: istio.telemetry.v1.Telemetry
+aliases: [/docs/reference/config/telemetry/v1/telemetry]
 number_of_entries: 18
 ---
 <p>Telemetry defines how the telemetry is generated for workloads within a mesh.</p>
@@ -23,7 +23,7 @@ selecting any given workload.</p>
 </ol>
 <h4 id="examples">Examples</h4>
 <p>Policy to enable random sampling for 10% of traffic:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: mesh-default
@@ -35,7 +35,7 @@ spec:
 </code></pre>
 <p>Policy to disable trace reporting for the <code>foo</code> workload (note: tracing
 context will still be propagated):</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: foo-tracing
@@ -48,7 +48,7 @@ spec:
   - disableSpanReporting: true
 </code></pre>
 <p>Policy to select the alternate zipkin provider for trace reporting:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: foo-tracing-alternate
@@ -63,7 +63,7 @@ spec:
     randomSamplingPercentage: 10.00
 </code></pre>
 <p>Policy to add a custom tag from a literal value:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: mesh-default
@@ -78,7 +78,7 @@ spec:
           value: &quot;foo&quot;
 </code></pre>
 <p>Policy to disable server-side metrics for Stackdriver for an entire mesh:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: mesh-default
@@ -95,7 +95,7 @@ spec:
       disabled: true
 </code></pre>
 <p>Policy to add dimensions to all Prometheus metrics for the <code>foo</code> namespace:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: namespace-metrics
@@ -115,7 +115,7 @@ spec:
 </code></pre>
 <p>Policy to remove the <code>response_code</code> dimension on some Prometheus metrics for
 the <code>bar.foo</code> workload:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: remove-response-code
@@ -150,7 +150,7 @@ spec:
           operation: REMOVE
 </code></pre>
 <p>Policy to enable access logging for the entire mesh:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: mesh-default
@@ -166,7 +166,7 @@ spec:
     # those cases, `disabled: false` must be set explicitly to override.
 </code></pre>
 <p>Policy to disable access logging for the <code>foo</code> namespace:</p>
-<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: telemetry.istio.io/v1
 kind: Telemetry
 metadata:
   name: namespace-no-log
