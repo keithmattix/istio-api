@@ -216,14 +216,13 @@ import "google/protobuf/wrappers.proto";
 //   - disabled: true
 // ```
 //
-package istio.telemetry.v1;
+package istio.telemetry.v1alpha1;
 
-option go_package = "istio.io/api/telemetry/v1";
+option go_package = "istio.io/api/telemetry/v1alpha1";
 
 // <!-- crd generation tags
 // +cue-gen:Telemetry:groupName:telemetry.istio.io
-// +cue-gen:Telemetry:version:v1
-// +cue-gen:Telemetry:storageVersion
+// +cue-gen:Telemetry:version:v1alpha1
 // +cue-gen:Telemetry:annotations:helm.sh/resource-policy=keep
 // +cue-gen:Telemetry:labels:app=istio-pilot,chart=istio,istio=telemetry,heritage=Tiller,release=istio
 // +cue-gen:Telemetry:subresource:status

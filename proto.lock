@@ -48277,7 +48277,7 @@
       }
     },
     {
-      "protopath": "telemetry:/:v1alpha1:/:telemetry.proto",
+      "protopath": "telemetry:/:v1:/:telemetry.proto",
       "def": {
         "enums": [
           {
@@ -48697,6 +48697,431 @@
           {
             "name": "go_package",
             "value": "istio.io/api/telemetry/v1alpha1"
+          }
+        ]
+      }
+    },
+    {
+      "protopath": "telemetry:/:v1alpha1:/:telemetry.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "WorkloadMode",
+            "enum_fields": [
+              {
+                "name": "CLIENT_AND_SERVER"
+              },
+              {
+                "name": "CLIENT",
+                "integer": 1
+              },
+              {
+                "name": "SERVER",
+                "integer": 2
+              }
+            ]
+          },
+          {
+            "name": "MetricSelector.IstioMetric",
+            "enum_fields": [
+              {
+                "name": "ALL_METRICS"
+              },
+              {
+                "name": "REQUEST_COUNT",
+                "integer": 1
+              },
+              {
+                "name": "REQUEST_DURATION",
+                "integer": 2
+              },
+              {
+                "name": "REQUEST_SIZE",
+                "integer": 3
+              },
+              {
+                "name": "RESPONSE_SIZE",
+                "integer": 4
+              },
+              {
+                "name": "TCP_OPENED_CONNECTIONS",
+                "integer": 5
+              },
+              {
+                "name": "TCP_CLOSED_CONNECTIONS",
+                "integer": 6
+              },
+              {
+                "name": "TCP_SENT_BYTES",
+                "integer": 7
+              },
+              {
+                "name": "TCP_RECEIVED_BYTES",
+                "integer": 8
+              },
+              {
+                "name": "GRPC_REQUEST_MESSAGES",
+                "integer": 9
+              },
+              {
+                "name": "GRPC_RESPONSE_MESSAGES",
+                "integer": 10
+              }
+            ]
+          },
+          {
+            "name": "TagOverride.Operation",
+            "enum_fields": [
+              {
+                "name": "UPSERT"
+              },
+              {
+                "name": "REMOVE",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "Telemetry",
+            "fields": [
+              {
+                "id": 1,
+                "name": "selector",
+                "type": "istio.type.v1beta1.WorkloadSelector"
+              },
+              {
+                "id": 5,
+                "name": "targetRef",
+                "type": "istio.type.v1beta1.PolicyTargetReference"
+              },
+              {
+                "id": 2,
+                "name": "tracing",
+                "type": "Tracing",
+                "is_repeated": true
+              },
+              {
+                "id": 3,
+                "name": "metrics",
+                "type": "Metrics",
+                "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "access_logging",
+                "type": "AccessLogging",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "Tracing",
+            "fields": [
+              {
+                "id": 7,
+                "name": "match",
+                "type": "TracingSelector"
+              },
+              {
+                "id": 2,
+                "name": "providers",
+                "type": "ProviderRef",
+                "is_repeated": true
+              },
+              {
+                "id": 3,
+                "name": "random_sampling_percentage",
+                "type": "google.protobuf.DoubleValue"
+              },
+              {
+                "id": 4,
+                "name": "disable_span_reporting",
+                "type": "google.protobuf.BoolValue"
+              },
+              {
+                "id": 6,
+                "name": "use_request_id_for_trace_sampling",
+                "type": "google.protobuf.BoolValue"
+              }
+            ],
+            "maps": [
+              {
+                "key_type": "string",
+                "field": {
+                  "id": 5,
+                  "name": "custom_tags",
+                  "type": "CustomTag"
+                }
+              }
+            ],
+            "messages": [
+              {
+                "name": "TracingSelector",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "mode",
+                    "type": "WorkloadMode"
+                  }
+                ]
+              },
+              {
+                "name": "CustomTag",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "literal",
+                    "type": "Literal",
+                    "oneof_parent": "type"
+                  },
+                  {
+                    "id": 2,
+                    "name": "environment",
+                    "type": "Environment",
+                    "oneof_parent": "type"
+                  },
+                  {
+                    "id": 3,
+                    "name": "header",
+                    "type": "RequestHeader",
+                    "oneof_parent": "type"
+                  }
+                ]
+              },
+              {
+                "name": "Literal",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "value",
+                    "type": "string",
+                    "options": [
+                      {
+                        "name": "(google.api.field_behavior)",
+                        "value": "REQUIRED"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Environment",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "name",
+                    "type": "string",
+                    "options": [
+                      {
+                        "name": "(google.api.field_behavior)",
+                        "value": "REQUIRED"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "name": "default_value",
+                    "type": "string"
+                  }
+                ]
+              },
+              {
+                "name": "RequestHeader",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "name",
+                    "type": "string",
+                    "options": [
+                      {
+                        "name": "(google.api.field_behavior)",
+                        "value": "REQUIRED"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "name": "default_value",
+                    "type": "string"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "ProviderRef",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string",
+                "options": [
+                  {
+                    "name": "(google.api.field_behavior)",
+                    "value": "REQUIRED"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Metrics",
+            "fields": [
+              {
+                "id": 1,
+                "name": "providers",
+                "type": "ProviderRef",
+                "is_repeated": true
+              },
+              {
+                "id": 2,
+                "name": "overrides",
+                "type": "MetricsOverrides",
+                "is_repeated": true
+              },
+              {
+                "id": 3,
+                "name": "reporting_interval",
+                "type": "google.protobuf.Duration"
+              }
+            ]
+          },
+          {
+            "name": "MetricSelector",
+            "fields": [
+              {
+                "id": 1,
+                "name": "metric",
+                "type": "IstioMetric",
+                "oneof_parent": "metric_match"
+              },
+              {
+                "id": 2,
+                "name": "custom_metric",
+                "type": "string",
+                "oneof_parent": "metric_match"
+              },
+              {
+                "id": 3,
+                "name": "mode",
+                "type": "WorkloadMode"
+              }
+            ]
+          },
+          {
+            "name": "MetricsOverrides",
+            "fields": [
+              {
+                "id": 1,
+                "name": "match",
+                "type": "MetricSelector"
+              },
+              {
+                "id": 2,
+                "name": "disabled",
+                "type": "google.protobuf.BoolValue"
+              }
+            ],
+            "maps": [
+              {
+                "key_type": "string",
+                "field": {
+                  "id": 3,
+                  "name": "tag_overrides",
+                  "type": "TagOverride"
+                }
+              }
+            ],
+            "messages": [
+              {
+                "name": "TagOverride",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "operation",
+                    "type": "Operation"
+                  },
+                  {
+                    "id": 2,
+                    "name": "value",
+                    "type": "string"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "AccessLogging",
+            "fields": [
+              {
+                "id": 4,
+                "name": "match",
+                "type": "LogSelector"
+              },
+              {
+                "id": 1,
+                "name": "providers",
+                "type": "ProviderRef",
+                "is_repeated": true
+              },
+              {
+                "id": 2,
+                "name": "disabled",
+                "type": "google.protobuf.BoolValue"
+              },
+              {
+                "id": 3,
+                "name": "filter",
+                "type": "Filter"
+              }
+            ],
+            "messages": [
+              {
+                "name": "LogSelector",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "mode",
+                    "type": "WorkloadMode"
+                  }
+                ]
+              },
+              {
+                "name": "Filter",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "expression",
+                    "type": "string"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "type/v1beta1/selector.proto"
+          },
+          {
+            "path": "google/api/field_behavior.proto"
+          },
+          {
+            "path": "google/protobuf/duration.proto"
+          },
+          {
+            "path": "google/protobuf/wrappers.proto"
+          }
+        ],
+        "package": {
+          "name": "istio.telemetry.v1"
+        },
+        "options": [
+          {
+            "name": "go_package",
+            "value": "istio.io/api/telemetry/v1"
           }
         ]
       }
