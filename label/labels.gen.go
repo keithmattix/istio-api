@@ -140,6 +140,26 @@ Note: users wishing to use sidecar mode should see the "istio-injection" label; 
 		},
 	}
 
+	IoIstioExportThrough = Instance {
+		Name:          "istio.io/export-through",
+		Description:   `When set on a resource, indicates the resource should be exposed via the network gateway with the given name.
+The value of this label takes the form of "namespace.gateway-name".
+
+When set on a "ServiceEntry" or a "Service", this binds that specific resource to the waypoint.
+When set on a "Namespace", this applies to all "Service"/"ServiceEntry" in the namespace.
+
+Currently only Kubernetes Gateways with gateway-class "istio-eastwest" are supported.
+`,
+		FeatureStatus: Stable,
+		Hidden:        false,
+		Deprecated:    false,
+		Resources: []ResourceTypes{
+			Service,
+			ServiceEntry,
+			Namespace,
+		},
+	}
+
 	IoIstioRev = Instance {
 		Name:          "istio.io/rev",
 		Description:   "Istio control plane revision associated with the "+
@@ -169,7 +189,7 @@ Note: users wishing to use sidecar mode should see the "istio-injection" label; 
 		Description:   `When set on a resource, indicates the resource has an associated waypoint with the given name.
 The waypoint is assumed to be in the same namespace; for cross-namespace, see "istio.io/use-waypoint-namespace".
 
-When set or a "Pod" or a "Service", this binds that specific resource to the waypoint.
+When set on a "Pod" or a "Service", this binds that specific resource to the waypoint.
 When set on a "Namespace", this applies to all "Pod"/"Service" in the namespace.
 
 Note: the waypoint must allow the type, see "istio.io/waypoint-for".
@@ -434,6 +454,7 @@ func AllResourceLabels() []*Instance {
 		&GatewayManaged,
 		&IoK8sNetworkingGatewayGatewayName,
 		&IoIstioDataplaneMode,
+		&IoIstioExportThrough,
 		&IoIstioRev,
 		&IoIstioTag,
 		&IoIstioUseWaypoint,
