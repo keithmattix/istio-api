@@ -77,6 +77,34 @@ Note: users wishing to use sidecar mode should see the <code>istio-injection</co
     </tr>
   </tbody>
 </table>
+<h2 id="IoIstioExportThrough">istio.io/export-through</h2>
+<table class="annotations">
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <td><code>istio.io/export-through</code></td>
+    </tr>
+    <tr>
+      <th>Feature Status</th>
+      <td>Stable</td>
+    </tr>
+    <tr>
+      <th>Resource Types</th>
+      <td>[Service ServiceEntry Namespace]</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><p>When set on a resource, indicates the resource should be exposed via the network gateway with the given name.
+The value of this label takes the form of &ldquo;namespace.gateway-name&rdquo;.</p>
+
+<p>When set on a <code>ServiceEntry</code> or a <code>Service</code>, this binds that specific resource to the waypoint.
+When set on a <code>Namespace</code>, this applies to all <code>Service</code>/<code>ServiceEntry</code> in the namespace.</p>
+
+<p>Currently only Kubernetes Gateways with gateway-class <code>istio-eastwest</code> are supported.</p>
+</td>
+    </tr>
+  </tbody>
+</table>
 <h2 id="IoIstioRev">istio.io/rev</h2>
 <table class="annotations">
   <tbody>
@@ -141,7 +169,7 @@ Note: users wishing to use sidecar mode should see the <code>istio-injection</co
       <td><p>When set on a resource, indicates the resource has an associated waypoint with the given name.
 The waypoint is assumed to be in the same namespace; for cross-namespace, see <code>istio.io/use-waypoint-namespace</code>.</p>
 
-<p>When set or a <code>Pod</code> or a <code>Service</code>, this binds that specific resource to the waypoint.
+<p>When set on a <code>Pod</code> or a <code>Service</code>, this binds that specific resource to the waypoint.
 When set on a <code>Namespace</code>, this applies to all <code>Pod</code>/<code>Service</code> in the namespace.</p>
 
 <p>Note: the waypoint must allow the type, see <code>istio.io/waypoint-for</code>.</p>
