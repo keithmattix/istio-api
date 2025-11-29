@@ -486,13 +486,13 @@ spec:
                                   - required:
                                     - systemCaCertificates
                                   - required:
-                                    - caCertRef
+                                    - caBundleRef
                               - required:
                                 - systemCaCertificates
                               - required:
-                                - caCertRef
+                                - caBundleRef
                               properties:
-                                caCertRef:
+                                caBundleRef:
                                   oneOf:
                                   - not:
                                       anyOf:

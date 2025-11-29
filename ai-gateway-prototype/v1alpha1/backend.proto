@@ -93,7 +93,7 @@ message Backend {
             string file_path = 2;
           }
         }
-        message CertificateAuthorityReference {
+        message CABundleReference {
           oneof ca_cert {
             // Reference to a Kubernetes ConfigMap containing the CA certificate in
             // PEM format.
@@ -165,7 +165,7 @@ message Backend {
             // certificate.
             google.protobuf.BoolValue system_ca_certificates = 6;
 
-            CertificateAuthorityReference ca_cert_ref = 7;
+            CABundleReference ca_bundle_ref = 7;
           }
         }
 
@@ -234,7 +234,7 @@ message Backend {
 
     oneof dest {
       // FQDN represents a fully qualified domain name.
-      FullyQualifiedDomainName fqdn = 5;
+      FullyQualifiedDomainName fqdn = 3;
     }
   }
 

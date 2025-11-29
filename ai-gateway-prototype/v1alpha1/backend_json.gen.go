@@ -72,14 +72,14 @@ func (this *Backend_Destination_ServicePort_TLS_CertificateReference) UnmarshalJ
 	return BackendUnmarshaler.Unmarshal(bytes.NewReader(b), this)
 }
 
-// MarshalJSON is a custom marshaler for Backend_Destination_ServicePort_TLS_CertificateAuthorityReference
-func (this *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) MarshalJSON() ([]byte, error) {
+// MarshalJSON is a custom marshaler for Backend_Destination_ServicePort_TLS_CABundleReference
+func (this *Backend_Destination_ServicePort_TLS_CABundleReference) MarshalJSON() ([]byte, error) {
 	str, err := BackendMarshaler.MarshalToString(this)
 	return []byte(str), err
 }
 
-// UnmarshalJSON is a custom unmarshaler for Backend_Destination_ServicePort_TLS_CertificateAuthorityReference
-func (this *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) UnmarshalJSON(b []byte) error {
+// UnmarshalJSON is a custom unmarshaler for Backend_Destination_ServicePort_TLS_CABundleReference
+func (this *Backend_Destination_ServicePort_TLS_CABundleReference) UnmarshalJSON(b []byte) error {
 	return BackendUnmarshaler.Unmarshal(bytes.NewReader(b), this)
 }
 

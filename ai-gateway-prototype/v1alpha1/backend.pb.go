@@ -375,7 +375,7 @@ type isBackend_Destination_Dest interface {
 
 type Backend_Destination_Fqdn struct {
 	// FQDN represents a fully qualified domain name.
-	Fqdn *Backend_Destination_FullyQualifiedDomainName `protobuf:"bytes,5,opt,name=fqdn,proto3,oneof"`
+	Fqdn *Backend_Destination_FullyQualifiedDomainName `protobuf:"bytes,3,opt,name=fqdn,proto3,oneof"`
 }
 
 func (*Backend_Destination_Fqdn) isBackend_Destination_Dest() {}
@@ -804,31 +804,31 @@ func (*Backend_Destination_ServicePort_TLS_CertificateReference_SecretName) isBa
 func (*Backend_Destination_ServicePort_TLS_CertificateReference_FilePath) isBackend_Destination_ServicePort_TLS_CertificateReference_Cert() {
 }
 
-type Backend_Destination_ServicePort_TLS_CertificateAuthorityReference struct {
+type Backend_Destination_ServicePort_TLS_CABundleReference struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to CaCert:
 	//
-	//	*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_CredentialName
-	//	*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_FilePath
-	CaCert        isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert `protobuf_oneof:"ca_cert"`
+	//	*Backend_Destination_ServicePort_TLS_CABundleReference_CredentialName
+	//	*Backend_Destination_ServicePort_TLS_CABundleReference_FilePath
+	CaCert        isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert `protobuf_oneof:"ca_cert"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) Reset() {
-	*x = Backend_Destination_ServicePort_TLS_CertificateAuthorityReference{}
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) Reset() {
+	*x = Backend_Destination_ServicePort_TLS_CABundleReference{}
 	mi := &file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) String() string {
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) ProtoMessage() {}
+func (*Backend_Destination_ServicePort_TLS_CABundleReference) ProtoMessage() {}
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) ProtoReflect() protoreflect.Message {
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) ProtoReflect() protoreflect.Message {
 	mi := &file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -840,56 +840,56 @@ func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) Prot
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Backend_Destination_ServicePort_TLS_CertificateAuthorityReference.ProtoReflect.Descriptor instead.
-func (*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) Descriptor() ([]byte, []int) {
+// Deprecated: Use Backend_Destination_ServicePort_TLS_CABundleReference.ProtoReflect.Descriptor instead.
+func (*Backend_Destination_ServicePort_TLS_CABundleReference) Descriptor() ([]byte, []int) {
 	return file_ai_gateway_prototype_v1alpha1_backend_proto_rawDescGZIP(), []int{0, 0, 1, 0, 1}
 }
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) GetCaCert() isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert {
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) GetCaCert() isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert {
 	if x != nil {
 		return x.CaCert
 	}
 	return nil
 }
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) GetCredentialName() string {
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) GetCredentialName() string {
 	if x != nil {
-		if x, ok := x.CaCert.(*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_CredentialName); ok {
+		if x, ok := x.CaCert.(*Backend_Destination_ServicePort_TLS_CABundleReference_CredentialName); ok {
 			return x.CredentialName
 		}
 	}
 	return ""
 }
 
-func (x *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference) GetFilePath() string {
+func (x *Backend_Destination_ServicePort_TLS_CABundleReference) GetFilePath() string {
 	if x != nil {
-		if x, ok := x.CaCert.(*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_FilePath); ok {
+		if x, ok := x.CaCert.(*Backend_Destination_ServicePort_TLS_CABundleReference_FilePath); ok {
 			return x.FilePath
 		}
 	}
 	return ""
 }
 
-type isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert interface {
-	isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert()
+type isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert interface {
+	isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert()
 }
 
-type Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_CredentialName struct {
+type Backend_Destination_ServicePort_TLS_CABundleReference_CredentialName struct {
 	// Reference to a Kubernetes ConfigMap containing the CA certificate in
 	// PEM format.
 	// TODO: Define keys in the ConfigMap including CRLs
 	CredentialName string `protobuf:"bytes,1,opt,name=credential_name,json=credentialName,proto3,oneof"`
 }
 
-type Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_FilePath struct {
+type Backend_Destination_ServicePort_TLS_CABundleReference_FilePath struct {
 	// Reference to a file containing the CA certificate in PEM format.
 	FilePath string `protobuf:"bytes,2,opt,name=file_path,json=filePath,proto3,oneof"`
 }
 
-func (*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_CredentialName) isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert() {
+func (*Backend_Destination_ServicePort_TLS_CABundleReference_CredentialName) isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert() {
 }
 
-func (*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_FilePath) isBackend_Destination_ServicePort_TLS_CertificateAuthorityReference_CaCert() {
+func (*Backend_Destination_ServicePort_TLS_CABundleReference_FilePath) isBackend_Destination_ServicePort_TLS_CABundleReference_CaCert() {
 }
 
 type Backend_Destination_ServicePort_TLS_FrontendTLS struct {
@@ -967,7 +967,7 @@ type Backend_Destination_ServicePort_TLS_BackendTLS struct {
 	// Types that are valid to be assigned to CaCertificates:
 	//
 	//	*Backend_Destination_ServicePort_TLS_BackendTLS_SystemCaCertificates
-	//	*Backend_Destination_ServicePort_TLS_BackendTLS_CaCertRef
+	//	*Backend_Destination_ServicePort_TLS_BackendTLS_CaBundleRef
 	CaCertificates isBackend_Destination_ServicePort_TLS_BackendTLS_CaCertificates `protobuf_oneof:"ca_certificates"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -1054,10 +1054,10 @@ func (x *Backend_Destination_ServicePort_TLS_BackendTLS) GetSystemCaCertificates
 	return nil
 }
 
-func (x *Backend_Destination_ServicePort_TLS_BackendTLS) GetCaCertRef() *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference {
+func (x *Backend_Destination_ServicePort_TLS_BackendTLS) GetCaBundleRef() *Backend_Destination_ServicePort_TLS_CABundleReference {
 	if x != nil {
-		if x, ok := x.CaCertificates.(*Backend_Destination_ServicePort_TLS_BackendTLS_CaCertRef); ok {
-			return x.CaCertRef
+		if x, ok := x.CaCertificates.(*Backend_Destination_ServicePort_TLS_BackendTLS_CaBundleRef); ok {
+			return x.CaBundleRef
 		}
 	}
 	return nil
@@ -1073,14 +1073,14 @@ type Backend_Destination_ServicePort_TLS_BackendTLS_SystemCaCertificates struct 
 	SystemCaCertificates *wrappers.BoolValue `protobuf:"bytes,6,opt,name=system_ca_certificates,json=systemCaCertificates,proto3,oneof"`
 }
 
-type Backend_Destination_ServicePort_TLS_BackendTLS_CaCertRef struct {
-	CaCertRef *Backend_Destination_ServicePort_TLS_CertificateAuthorityReference `protobuf:"bytes,7,opt,name=ca_cert_ref,json=caCertRef,proto3,oneof"`
+type Backend_Destination_ServicePort_TLS_BackendTLS_CaBundleRef struct {
+	CaBundleRef *Backend_Destination_ServicePort_TLS_CABundleReference `protobuf:"bytes,7,opt,name=ca_bundle_ref,json=caBundleRef,proto3,oneof"`
 }
 
 func (*Backend_Destination_ServicePort_TLS_BackendTLS_SystemCaCertificates) isBackend_Destination_ServicePort_TLS_BackendTLS_CaCertificates() {
 }
 
-func (*Backend_Destination_ServicePort_TLS_BackendTLS_CaCertRef) isBackend_Destination_ServicePort_TLS_BackendTLS_CaCertificates() {
+func (*Backend_Destination_ServicePort_TLS_BackendTLS_CaBundleRef) isBackend_Destination_ServicePort_TLS_BackendTLS_CaCertificates() {
 }
 
 type Backend_Destination_ServicePort_ProtocolOptions_MCPOptions struct {
@@ -1147,18 +1147,18 @@ var File_ai_gateway_prototype_v1alpha1_backend_proto protoreflect.FileDescriptor
 
 const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\n" +
-	"+ai-gateway-prototype/v1alpha1/backend.proto\x12%gateway.networking.k8s.istio.v1alpha1\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\x99\x16\n" +
+	"+ai-gateway-prototype/v1alpha1/backend.proto\x12%gateway.networking.k8s.istio.v1alpha1\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\x85\x16\n" +
 	"\aBackend\x12\\\n" +
 	"\vdestination\x18\x01 \x01(\v2:.gateway.networking.k8s.istio.v1alpha1.Backend.DestinationR\vdestination\x12X\n" +
 	"\n" +
 	"extensions\x18\x02 \x03(\v28.gateway.networking.k8s.istio.v1alpha1.Backend.ExtensionR\n" +
-	"extensions\x1a\xef\x13\n" +
+	"extensions\x1a\xdb\x13\n" +
 	"\vDestination\x12S\n" +
 	"\x04type\x18\x01 \x01(\x0e2?.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.TypeR\x04type\x12\\\n" +
 	"\x05ports\x18\x02 \x03(\v2F.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePortR\x05ports\x12i\n" +
-	"\x04fqdn\x18\x05 \x01(\v2S.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.FullyQualifiedDomainNameH\x00R\x04fqdn\x1a6\n" +
+	"\x04fqdn\x18\x03 \x01(\v2S.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.FullyQualifiedDomainNameH\x00R\x04fqdn\x1a6\n" +
 	"\x18FullyQualifiedDomainName\x12\x1a\n" +
-	"\bhostname\x18\x01 \x01(\tR\bhostname\x1a\xba\x10\n" +
+	"\bhostname\x18\x01 \x01(\tR\bhostname\x1a\xa6\x10\n" +
 	"\vServicePort\x12\x1c\n" +
 	"\x06number\x18\x01 \x01(\rB\x04\xe2A\x01\x02R\x06number\x12\x1a\n" +
 	"\bprotocol\x18\x02 \x01(\tR\bprotocol\x12\x18\n" +
@@ -1166,7 +1166,7 @@ const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\vtarget_port\x18\x04 \x01(\rR\n" +
 	"targetPort\x12\\\n" +
 	"\x03tls\x18\x05 \x01(\v2J.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLSR\x03tls\x12\x81\x01\n" +
-	"\x10protocol_options\x18\x06 \x01(\v2V.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptionsR\x0fprotocolOptions\x1a\x81\f\n" +
+	"\x10protocol_options\x18\x06 \x01(\v2V.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptionsR\x0fprotocolOptions\x1a\xed\v\n" +
 	"\x03TLS\x12r\n" +
 	"\bfrontend\x18\x01 \x01(\v2V.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.FrontendTLSR\bfrontend\x12o\n" +
 	"\abackend\x18\x02 \x01(\v2U.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLSR\abackend\x1a`\n" +
@@ -1174,8 +1174,8 @@ const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\vsecret_name\x18\x01 \x01(\tH\x00R\n" +
 	"secretName\x12\x1d\n" +
 	"\tfile_path\x18\x02 \x01(\tH\x00R\bfilePathB\x06\n" +
-	"\x04cert\x1at\n" +
-	"\x1dCertificateAuthorityReference\x12)\n" +
+	"\x04cert\x1ah\n" +
+	"\x11CABundleReference\x12)\n" +
 	"\x0fcredential_name\x18\x01 \x01(\tH\x00R\x0ecredentialName\x12\x1d\n" +
 	"\tfile_path\x18\x02 \x01(\tH\x00R\bfilePathB\t\n" +
 	"\aca_cert\x1a\xcc\x02\n" +
@@ -1185,7 +1185,7 @@ const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\x04Mode\x12\x0f\n" +
 	"\vUNSPECIFIED\x10\x00\x12\r\n" +
 	"\tTERMINATE\x10\x01\x12\x0f\n" +
-	"\vPASSTHROUGH\x10\x02\x1a\xed\x05\n" +
+	"\vPASSTHROUGH\x10\x02\x1a\xe5\x05\n" +
 	"\n" +
 	"BackendTLS\x12n\n" +
 	"\x04mode\x18\x01 \x01(\x0e2Z.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.ModeR\x04mode\x12*\n" +
@@ -1193,8 +1193,8 @@ const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\x03sni\x18\x03 \x01(\tR\x03sni\x12\x90\x01\n" +
 	"\x13client_certificates\x18\x04 \x01(\v2_.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateReferenceR\x12clientCertificates\x12L\n" +
 	"\x14insecure_skip_verify\x18\x05 \x01(\v2\x1a.google.protobuf.BoolValueR\x12insecureSkipVerify\x12R\n" +
-	"\x16system_ca_certificates\x18\x06 \x01(\v2\x1a.google.protobuf.BoolValueH\x00R\x14systemCaCertificates\x12\x8a\x01\n" +
-	"\vca_cert_ref\x18\a \x01(\v2h.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateAuthorityReferenceH\x00R\tcaCertRef\"\\\n" +
+	"\x16system_ca_certificates\x18\x06 \x01(\v2\x1a.google.protobuf.BoolValueH\x00R\x14systemCaCertificates\x12\x82\x01\n" +
+	"\rca_bundle_ref\x18\a \x01(\v2\\.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CABundleReferenceH\x00R\vcaBundleRef\"\\\n" +
 	"\x04Mode\x12\x0f\n" +
 	"\vUNSPECIFIED\x10\x00\x12\n" +
 	"\n" +
@@ -1240,20 +1240,20 @@ var file_ai_gateway_prototype_v1alpha1_backend_proto_goTypes = []any{
 	(Backend_Destination_Type)(0),                             // 0: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.Type
 	(Backend_Destination_ServicePort_TLS_FrontendTLS_Mode)(0), // 1: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.FrontendTLS.Mode
 	(Backend_Destination_ServicePort_TLS_BackendTLS_Mode)(0),  // 2: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.Mode
-	(*Backend)(nil),                                                           // 3: gateway.networking.k8s.istio.v1alpha1.Backend
-	(*Backend_Destination)(nil),                                               // 4: gateway.networking.k8s.istio.v1alpha1.Backend.Destination
-	(*Backend_Extension)(nil),                                                 // 5: gateway.networking.k8s.istio.v1alpha1.Backend.Extension
-	(*Backend_Destination_FullyQualifiedDomainName)(nil),                      // 6: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.FullyQualifiedDomainName
-	(*Backend_Destination_ServicePort)(nil),                                   // 7: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort
-	(*Backend_Destination_ServicePort_TLS)(nil),                               // 8: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS
-	(*Backend_Destination_ServicePort_ProtocolOptions)(nil),                   // 9: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptions
-	(*Backend_Destination_ServicePort_TLS_CertificateReference)(nil),          // 10: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateReference
-	(*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference)(nil), // 11: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateAuthorityReference
-	(*Backend_Destination_ServicePort_TLS_FrontendTLS)(nil),                   // 12: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.FrontendTLS
-	(*Backend_Destination_ServicePort_TLS_BackendTLS)(nil),                    // 13: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS
-	(*Backend_Destination_ServicePort_ProtocolOptions_MCPOptions)(nil),        // 14: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptions.MCPOptions
-	(*_struct.Struct)(nil),                                                    // 15: google.protobuf.Struct
-	(*wrappers.BoolValue)(nil),                                                // 16: google.protobuf.BoolValue
+	(*Backend)(nil),                                                    // 3: gateway.networking.k8s.istio.v1alpha1.Backend
+	(*Backend_Destination)(nil),                                        // 4: gateway.networking.k8s.istio.v1alpha1.Backend.Destination
+	(*Backend_Extension)(nil),                                          // 5: gateway.networking.k8s.istio.v1alpha1.Backend.Extension
+	(*Backend_Destination_FullyQualifiedDomainName)(nil),               // 6: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.FullyQualifiedDomainName
+	(*Backend_Destination_ServicePort)(nil),                            // 7: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort
+	(*Backend_Destination_ServicePort_TLS)(nil),                        // 8: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS
+	(*Backend_Destination_ServicePort_ProtocolOptions)(nil),            // 9: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptions
+	(*Backend_Destination_ServicePort_TLS_CertificateReference)(nil),   // 10: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateReference
+	(*Backend_Destination_ServicePort_TLS_CABundleReference)(nil),      // 11: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CABundleReference
+	(*Backend_Destination_ServicePort_TLS_FrontendTLS)(nil),            // 12: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.FrontendTLS
+	(*Backend_Destination_ServicePort_TLS_BackendTLS)(nil),             // 13: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS
+	(*Backend_Destination_ServicePort_ProtocolOptions_MCPOptions)(nil), // 14: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.ProtocolOptions.MCPOptions
+	(*_struct.Struct)(nil),                                             // 15: google.protobuf.Struct
+	(*wrappers.BoolValue)(nil),                                         // 16: google.protobuf.BoolValue
 }
 var file_ai_gateway_prototype_v1alpha1_backend_proto_depIdxs = []int32{
 	4,  // 0: gateway.networking.k8s.istio.v1alpha1.Backend.destination:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination
@@ -1273,7 +1273,7 @@ var file_ai_gateway_prototype_v1alpha1_backend_proto_depIdxs = []int32{
 	10, // 14: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.client_certificates:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateReference
 	16, // 15: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.insecure_skip_verify:type_name -> google.protobuf.BoolValue
 	16, // 16: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.system_ca_certificates:type_name -> google.protobuf.BoolValue
-	11, // 17: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.ca_cert_ref:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CertificateAuthorityReference
+	11, // 17: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.BackendTLS.ca_bundle_ref:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.ServicePort.TLS.CABundleReference
 	18, // [18:18] is the sub-list for method output_type
 	18, // [18:18] is the sub-list for method input_type
 	18, // [18:18] is the sub-list for extension type_name
@@ -1297,12 +1297,12 @@ func file_ai_gateway_prototype_v1alpha1_backend_proto_init() {
 		(*Backend_Destination_ServicePort_TLS_CertificateReference_FilePath)(nil),
 	}
 	file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[8].OneofWrappers = []any{
-		(*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_CredentialName)(nil),
-		(*Backend_Destination_ServicePort_TLS_CertificateAuthorityReference_FilePath)(nil),
+		(*Backend_Destination_ServicePort_TLS_CABundleReference_CredentialName)(nil),
+		(*Backend_Destination_ServicePort_TLS_CABundleReference_FilePath)(nil),
 	}
 	file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[10].OneofWrappers = []any{
 		(*Backend_Destination_ServicePort_TLS_BackendTLS_SystemCaCertificates)(nil),
-		(*Backend_Destination_ServicePort_TLS_BackendTLS_CaCertRef)(nil),
+		(*Backend_Destination_ServicePort_TLS_BackendTLS_CaBundleRef)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

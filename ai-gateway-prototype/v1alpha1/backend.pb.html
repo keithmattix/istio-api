@@ -243,7 +243,7 @@ CRLs, etc.</p>
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference">CertificateAuthorityReference</h6>
+<h6 id="Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference</h6>
 <section>
 <table class="message-fields">
 <thead>
@@ -253,8 +253,8 @@ CRLs, etc.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-credential_name" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-credential_name">credentialName</a></code></div>
+<tr id="Backend-Destination-ServicePort-TLS-CABundleReference-credential_name" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CABundleReference-credential_name">credentialName</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -264,8 +264,8 @@ TODO: Define keys in the ConfigMap including CRLs</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-file_path" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-file_path">filePath</a></code></div>
+<tr id="Backend-Destination-ServicePort-TLS-CABundleReference-file_path" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CABundleReference-file_path">filePath</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -403,9 +403,9 @@ certificate.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-ca_cert_ref" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-ca_cert_ref">caCertRef</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference">CertificateAuthorityReference (oneof)</a></div>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-ca_bundle_ref" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-ca_bundle_ref">caBundleRef</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference (oneof)</a></div>
 </div></td>
 <td>
 </td>
