@@ -370,6 +370,344 @@ metadata:
     chart: istio
     heritage: Tiller
     release: istio
+  name: backends.gateway.networking.k8s.istio.io
+spec:
+  group: gateway.networking.k8s.istio.io
+  names:
+    categories:
+    - istio-io
+    - gateway-networking-k8s-istio-io
+    kind: Backend
+    listKind: BackendList
+    plural: backends
+    singular: backend
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The name of a service from the service registry
+      jsonPath: .spec.destination.fqdn.hostname
+      name: Host
+      type: string
+    - description: CreationTimestamp is a timestamp representing the server time when
+        this object was created. It is not guaranteed to be set in happens-before
+        order across separate operations. Clients may not set this value. It is represented
+        in RFC3339 form and is in UTC. Populated by the system. Read-only. Null for
+        lists. For more information, see [Kubernetes API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata)
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            description: Backends provide a first-class way to describe external destinations
+              (for example, FQDNs) and the connection policy needed to reach them.
+            properties:
+              destination:
+                oneOf:
+                - not:
+                    anyOf:
+                    - required:
+                      - fqdn
+                - required:
+                  - fqdn
+                properties:
+                  fqdn:
+                    description: FQDN represents a fully qualified domain name.
+                    properties:
+                      hostname:
+                        description: Hostname represents the fully qualified domain
+                          name of the backend service.
+                        type: string
+                    type: object
+                  ports:
+                    items:
+                      properties:
+                        name:
+                          description: Label assigned to the port.
+                          maxLength: 256
+                          type: string
+                        number:
+                          description: A valid non-negative integer port number.
+                          maximum: 4294967295
+                          minimum: 0
+                          type: integer
+                          x-kubernetes-validations:
+                          - message: port must be between 1-65535
+                            rule: 0 < self && self <= 65535
+                        protocol:
+                          description: The protocol exposed on the port.
+                          maxLength: 256
+                          type: string
+                        targetPort:
+                          description: The port number on the endpoint where the traffic
+                            will be received.
+                          maximum: 4294967295
+                          minimum: 0
+                          type: integer
+                          x-kubernetes-validations:
+                          - message: port must be between 1-65535
+                            rule: 0 < self && self <= 65535
+                        tls:
+                          description: Optional TLS settings for connections to this
+                            port.
+                          properties:
+                            backend:
+                              description: Configuration governing the communication
+                                to the upstream backend.
+                              oneOf:
+                              - not:
+                                  anyOf:
+                                  - required:
+                                    - systemCaCertificates
+                                  - required:
+                                    - caCertRef
+                              - required:
+                                - systemCaCertificates
+                              - required:
+                                - caCertRef
+                              properties:
+                                caCertRef:
+                                  oneOf:
+                                  - not:
+                                      anyOf:
+                                      - required:
+                                        - credentialName
+                                      - required:
+                                        - filePath
+                                  - required:
+                                    - credentialName
+                                  - required:
+                                    - filePath
+                                  properties:
+                                    credentialName:
+                                      description: Reference to a Kubernetes ConfigMap
+                                        containing the CA certificate in PEM format.
+                                      type: string
+                                    filePath:
+                                      description: Reference to a file containing
+                                        the CA certificate in PEM format.
+                                      type: string
+                                  type: object
+                                clientCertificates:
+                                  description: Client certificates to present to the
+                                    backend.
+                                  oneOf:
+                                  - not:
+                                      anyOf:
+                                      - required:
+                                        - secretName
+                                      - required:
+                                        - filePath
+                                  - required:
+                                    - secretName
+                                  - required:
+                                    - filePath
+                                  properties:
+                                    filePath:
+                                      description: Reference to a file containing
+                                        the certificate in PEM format.
+                                      type: string
+                                    secretName:
+                                      description: Reference to a Kubernetes Secret
+                                        containing the certificate in PEM format.
+                                      type: string
+                                  type: object
+                                insecureSkipVerify:
+                                  description: '`insecureSkipVerify` specifies whether
+                                    the proxy should skip verifying the CA signature
+                                    and SAN for the server certificate corresponding
+                                    to the host.'
+                                  nullable: true
+                                  type: boolean
+                                mode:
+                                  description: |2-
+
+
+                                    Valid Options: SIMPLE, MUTUAL, PLATFORM_PROVIDED, INSECURE_DISABLE
+                                  enum:
+                                  - UNSPECIFIED
+                                  - SIMPLE
+                                  - MUTUAL
+                                  - PLATFORM_PROVIDED
+                                  - INSECURE_DISABLE
+                                  type: string
+                                sni:
+                                  description: SNI to present when initializing TLS
+                                    to the backend.
+                                  type: string
+                                subjectAltNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                systemCaCertificates:
+                                  description: Use system CA certificates to validate
+                                    the backend's server certificate.
+                                  nullable: true
+                                  type: boolean
+                              type: object
+                            frontend:
+                              description: optional TLS settings for connections from
+                                the in-cluster client to the bump in the wire (e.g.
+                              properties:
+                                frontendCertificate:
+                                  description: Certificate presented to the in-cluster
+                                    client when frontend.mode is TERMINATE.
+                                  oneOf:
+                                  - not:
+                                      anyOf:
+                                      - required:
+                                        - secretName
+                                      - required:
+                                        - filePath
+                                  - required:
+                                    - secretName
+                                  - required:
+                                    - filePath
+                                  properties:
+                                    filePath:
+                                      description: Reference to a file containing
+                                        the certificate in PEM format.
+                                      type: string
+                                    secretName:
+                                      description: Reference to a Kubernetes Secret
+                                        containing the certificate in PEM format.
+                                      type: string
+                                  type: object
+                                mode:
+                                  description: |2-
+
+
+                                    Valid Options: TERMINATE, PASSTHROUGH
+                                  enum:
+                                  - UNSPECIFIED
+                                  - TERMINATE
+                                  - PASSTHROUGH
+                                  type: string
+                              type: object
+                          type: object
+                      required:
+                      - number
+                      - name
+                      type: object
+                    type: array
+                  type:
+                    description: |2-
+
+
+                      Valid Options: FQDN, IP, KubernetesService
+                    enum:
+                    - TYPE_UNSPECIFIED
+                    - FQDN
+                    - IP
+                    - KubernetesService
+                    type: string
+                type: object
+              extensions:
+                items:
+                  properties:
+                    config:
+                      type: object
+                      x-kubernetes-preserve-unknown-fields: true
+                    name:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            properties:
+              conditions:
+                description: Current service state of the resource.
+                items:
+                  properties:
+                    lastProbeTime:
+                      description: Last time we probed the condition.
+                      format: date-time
+                      type: string
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status
+                        to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: Human-readable message indicating details about
+                        last transition.
+                      type: string
+                    observedGeneration:
+                      anyOf:
+                      - type: integer
+                      - type: string
+                      description: Resource Generation to which the Condition refers.
+                      x-kubernetes-int-or-string: true
+                    reason:
+                      description: Unique, one-word, CamelCase reason for the condition's
+                        last transition.
+                      type: string
+                    status:
+                      description: Status is the status of the condition.
+                      type: string
+                    type:
+                      description: Type is the type of the condition.
+                      type: string
+                  type: object
+                type: array
+              observedGeneration:
+                anyOf:
+                - type: integer
+                - type: string
+                x-kubernetes-int-or-string: true
+              validationMessages:
+                description: Includes any errors or warnings detected by Istio's analyzers.
+                items:
+                  properties:
+                    documentationUrl:
+                      description: A url pointing to the Istio documentation for this
+                        specific error type.
+                      type: string
+                    level:
+                      description: |-
+                        Represents how severe a message is.
+
+                        Valid Options: UNKNOWN, ERROR, WARNING, INFO
+                      enum:
+                      - UNKNOWN
+                      - ERROR
+                      - WARNING
+                      - INFO
+                      type: string
+                    type:
+                      properties:
+                        code:
+                          description: A 7 character code matching `^IST[0-9]{4}$`
+                            intended to uniquely identify the message type.
+                          type: string
+                        name:
+                          description: A human-readable name for the message type.
+                          type: string
+                      type: object
+                  type: object
+                type: array
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
+  labels:
+    app: istio-pilot
+    chart: istio
+    heritage: Tiller
+    release: istio
   name: destinationrules.networking.istio.io
 spec:
   group: networking.istio.io

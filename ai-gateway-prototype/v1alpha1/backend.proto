@@ -1,0 +1,227 @@
+// Copyright 2025 Istio Authors
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+syntax = "proto3";
+
+// $schema: k8s.networking.gateway.v1alpha1.Backend
+// $title: Backend
+// $description: Prototype for WG AI Gateway's Backend resource.
+
+package gateway.networking.k8s.istio.v1alpha1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "istio.io/api/ai-gateway-prototype/v1alpha1";
+
+// Backends provide a first-class way to describe external destinations
+// (for example, FQDNs) and the connection policy needed to reach them.
+//
+// <!-- crd generation tags
+// +cue-gen:Backend:groupName:gateway.networking.k8s.istio.io
+// +cue-gen:Backend:versions:v1alpha1
+// +cue-gen:Backend:annotations:helm.sh/resource-policy=keep
+// +cue-gen:Backend:labels:app=istio-pilot,chart=istio,heritage=Tiller,release=istio
+// +cue-gen:Backend:subresource:status
+// +cue-gen:Backend:scope:Namespaced
+// +cue-gen:Backend:resource:categories=istio-io,gateway-networking-k8s-istio-io
+// +cue-gen:Backend:printerColumn:name=Host,type=string,JSONPath=.spec.destination.fqdn.hostname,description="The
+// name of a service from the service registry"
+// +cue-gen:Backend:printerColumn:name=Age,type=date,JSONPath=.metadata.creationTimestamp,description="CreationTimestamp
+// is a timestamp representing the server time when this object was created. It
+// is not guaranteed to be set in happens-before order across separate
+// operations. Clients may not set this value. It is represented in RFC3339 form
+// and is in UTC. Populated by the system. Read-only. Null for lists. For more
+// information, see [Kubernetes API
+// Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata)"
+// +cue-gen:Backend:preserveUnknownFields:false
+// -->
+//
+// <!-- go code generation tags
+// +kubetype-gen
+// +kubetype-gen:groupVersion=gateway.networking.k8s.istio.io/v1alpha1
+// +genclient
+// +k8s:deepcopy-gen=true
+// -->
+message Backend {
+  message Destination {
+    enum Type {
+      // Default value.
+      TYPE_UNSPECIFIED = 0;
+
+      // FQDN represents a fully qualified domain name.
+      FQDN = 1;
+
+      // IP represents an IP address.
+      IP = 2;
+
+      // KubernetesService represents a Kubernetes Service.
+      KubernetesService = 3;
+    }
+
+    message FullyQualifiedDomainName {
+      // Hostname represents the fully qualified domain name of the backend
+      // service.
+      //
+      // Examples: "api.example.com", "backend.default.svc.cluster.local"
+      string hostname = 1;
+    }
+
+    // ServicePort describes the properties of a specific port of a service.
+    message ServicePort {
+      message TLS {
+        message CertificateReference {
+          oneof cert {
+            // Reference to a Kubernetes Secret containing the certificate in PEM
+            // format.
+            // TODO: Define keys in the Secret including private key, server cert,
+            // CRLs, etc.
+            string secret_name = 1;
+
+            // Reference to a file containing the certificate in PEM format.
+            string file_path = 2;
+          }
+        }
+        message CertificateAuthorityReference {
+          oneof ca_cert {
+            // Reference to a Kubernetes ConfigMap containing the CA certificate in
+            // PEM format.
+            // TODO: Define keys in the ConfigMap including CRLs
+            string credential_name = 1;
+
+            // Reference to a file containing the CA certificate in PEM format.
+            string file_path = 2;
+          }
+        }
+        message FrontendTLS {
+          // TODO: Add fields as needed.
+          enum Mode {
+            UNSPECIFIED = 0;
+
+            TERMINATE = 1;
+
+            PASSTHROUGH = 2;
+          }
+          Mode mode = 1;
+
+          // Certificate presented to the in-cluster client when
+          // frontend.mode is TERMINATE.
+          CertificateReference frontend_certificate = 2;
+        }
+
+        message BackendTLS {
+          enum Mode {
+            // Default value.
+            UNSPECIFIED = 0;
+            // Enable TLS to the backend with simple verification of the server
+            // certificate. The trust chain will default to system CA
+            // certificates unless specified in other fields.
+            SIMPLE = 1;
+            // Enable mutual TLS. The trust chain will default to system CA
+            // certificates unless specified in other fields.
+            MUTUAL = 2;
+            // Configures the implementation to use its built in TLS method if
+            // it has one (e.g. a service mesh's mTLS). Be aware that without
+            // properly configured TLS at the platform level, this field may
+            // lead to insecure connections.
+            // TODO(keithmattix): is this worth even having? Is Gateway API's
+            // `options` field a better model?
+            PLATFORM_PROVIDED = 3;
+            // Disable TLS.
+            INSECURE_DISABLE = 4;
+          }
+
+          Mode mode = 1;
+          repeated string subject_alt_names = 2;
+          // SNI to present when initializing TLS to the backend. If unset, SNI
+          // will be set automatically based on host/authority header for SIMPLE
+          // and MUTUAL TLS modes.
+          string sni = 3;
+
+          // Client certificates to present to the backend.
+          // Only used in MUTUAL mode.
+          CertificateReference client_certificates = 4;
+
+          // `insecureSkipVerify` specifies whether the proxy should skip
+          // verifying the
+          // CA signature and SAN for the server certificate corresponding to
+          // the host. The default value of this field is false.
+          google.protobuf.BoolValue insecure_skip_verify = 5;
+
+          // CA to validate the backend's server certificate.
+          oneof ca_certificates {
+            // Use system CA certificates to validate the backend's server
+            // certificate.
+            google.protobuf.BoolValue system_ca_certificates = 6;
+
+            CertificateAuthorityReference ca_cert_ref = 7;
+          }
+        }
+
+        // optional TLS settings for connections from the in-cluster client
+        // to the bump in the wire (e.g. an egress gateway) sitting in front
+        // of this backend.
+        FrontendTLS frontend = 1;
+        // Configuration governing the communication to the upstream backend.
+        // If this Backend is behind an egress gateway, this field governs the
+        // TLS settings from the egress gateway to the backend. Deployments not
+        // using a gateway will use this field to configure TLS settings
+        // directly to the backend. Optional if frontend.mode is set to
+        // PASSTHROUGH.
+        BackendTLS backend = 2;
+      }
+      // A valid non-negative integer port number.
+      // +kubebuilder:validation:XValidation:message="port must be between 1-65535",rule="0 < self && self <= 65535"
+      uint32 number = 1 [(google.api.field_behavior) = REQUIRED];
+
+      // The protocol exposed on the port.
+      // MUST be one of HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS|MCP.
+      // TLS implies the connection will be routed based on the SNI header to
+      // the destination without terminating the TLS connection.
+      // +kubebuilder:validation:MaxLength=256
+      string protocol = 2;
+
+      // Label assigned to the port.
+      // +kubebuilder:validation:MaxLength=256
+      string name = 3 [(google.api.field_behavior) = REQUIRED];
+
+      // The port number on the endpoint where the traffic will be
+      // received. If unset, default to `number`.
+      // +kubebuilder:validation:XValidation:message="port must be between 1-65535",rule="0 < self && self <= 65535"
+      uint32 target_port = 4;
+
+      // Optional TLS settings for connections to this port.
+      TLS tls = 5;
+    }
+
+    Type type = 1;
+
+    repeated ServicePort ports = 2;
+
+    oneof dest {
+      // FQDN represents a fully qualified domain name.
+      FullyQualifiedDomainName fqdn = 5;
+    }
+  }
+
+  message Extension {
+    string name = 1;
+    string type = 2;
+    google.protobuf.Struct config = 3;
+  }
+
+  Destination destination = 1;
+
+  repeated Extension extensions = 2;
+}

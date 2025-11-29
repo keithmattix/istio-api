@@ -1,0 +1,537 @@
+---
+title: Backend
+description: Prototype for WG AI Gateway's Backend resource.
+layout: protoc-gen-docs
+generator: protoc-gen-docs
+schema: k8s.networking.gateway.v1alpha1.Backend
+number_of_entries: 13
+---
+<h2 id="Backend">Backend</h2>
+<section>
+<p>Backends provide a first-class way to describe external destinations
+(for example, FQDNs) and the connection policy needed to reach them.</p>
+
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-destination">
+<td><div class="field"><div class="name"><code><a href="#Backend-destination">destination</a></code></div>
+<div class="type"><a href="#Backend-Destination">Destination</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-extensions">
+<td><div class="field"><div class="name"><code><a href="#Backend-extensions">extensions</a></code></div>
+<div class="type"><a href="#Backend-Extension">Extension[]</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h3 id="Backend-Destination">Destination</h3>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-type">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-type">type</a></code></div>
+<div class="type"><a href="#Backend-Destination-Type">Type</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ports">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ports">ports</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort">ServicePort[]</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-fqdn" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-fqdn">fqdn</a></code></div>
+<div class="type"><a href="#Backend-Destination-FullyQualifiedDomainName">FullyQualifiedDomainName (oneof)</a></div>
+</div></td>
+<td>
+<p>FQDN represents a fully qualified domain name.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h4 id="Backend-Destination-FullyQualifiedDomainName">FullyQualifiedDomainName</h4>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-FullyQualifiedDomainName-hostname">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-FullyQualifiedDomainName-hostname">hostname</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>Hostname represents the fully qualified domain name of the backend
+service.</p>
+<p>Examples: &ldquo;api.example.com&rdquo;, &ldquo;backend.default.svc.cluster.local&rdquo;</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h4 id="Backend-Destination-ServicePort">ServicePort</h4>
+<section>
+<p>ServicePort describes the properties of a specific port of a service.</p>
+
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-number">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-number">number</a></code></div>
+<div class="type">uint32</div>
+<div class="required">Required</div>
+</div></td>
+<td>
+<p>A valid non-negative integer port number.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-protocol">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-protocol">protocol</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>The protocol exposed on the port.
+MUST be one of HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS|MCP.
+TLS implies the connection will be routed based on the SNI header to
+the destination without terminating the TLS connection.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-name">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-name">name</a></code></div>
+<div class="type">string</div>
+<div class="required">Required</div>
+</div></td>
+<td>
+<p>Label assigned to the port.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-target_port">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-target_port">targetPort</a></code></div>
+<div class="type">uint32</div>
+</div></td>
+<td>
+<p>The port number on the endpoint where the traffic will be
+received. If unset, default to <code>number</code>.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-tls">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-tls">tls</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS">TLS</a></div>
+</div></td>
+<td>
+<p>Optional TLS settings for connections to this port.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h5 id="Backend-Destination-ServicePort-TLS">TLS</h5>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-frontend">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-frontend">frontend</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS">FrontendTLS</a></div>
+</div></td>
+<td>
+<p>optional TLS settings for connections from the in-cluster client
+to the bump in the wire (e.g. an egress gateway) sitting in front
+of this backend.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-backend">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-backend">backend</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-BackendTLS">BackendTLS</a></div>
+</div></td>
+<td>
+<p>Configuration governing the communication to the upstream backend.
+If this Backend is behind an egress gateway, this field governs the
+TLS settings from the egress gateway to the backend. Deployments not
+using a gateway will use this field to configure TLS settings
+directly to the backend. Optional if frontend.mode is set to
+PASSTHROUGH.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</h6>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-CertificateReference-secret_name" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateReference-secret_name">secretName</a></code></div>
+<div class="type">string (oneof)</div>
+</div></td>
+<td>
+<p>Reference to a Kubernetes Secret containing the certificate in PEM
+format.
+TODO: Define keys in the Secret including private key, server cert,
+CRLs, etc.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-CertificateReference-file_path" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateReference-file_path">filePath</a></code></div>
+<div class="type">string (oneof)</div>
+</div></td>
+<td>
+<p>Reference to a file containing the certificate in PEM format.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference">CertificateAuthorityReference</h6>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-credential_name" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-credential_name">credentialName</a></code></div>
+<div class="type">string (oneof)</div>
+</div></td>
+<td>
+<p>Reference to a Kubernetes ConfigMap containing the CA certificate in
+PEM format.
+TODO: Define keys in the ConfigMap including CRLs</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-file_path" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference-file_path">filePath</a></code></div>
+<div class="type">string (oneof)</div>
+</div></td>
+<td>
+<p>Reference to a file containing the CA certificate in PEM format.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-FrontendTLS">FrontendTLS</h6>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-mode">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-mode">mode</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode">Mode</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-frontend_certificate">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-frontend_certificate">frontendCertificate</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
+</div></td>
+<td>
+<p>Certificate presented to the in-cluster client when
+frontend.mode is TERMINATE.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode">Mode</h6>
+<section>
+<p>TODO: Add fields as needed.</p>
+
+<table class="enum-values">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-UNSPECIFIED">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-TERMINATE">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-TERMINATE">TERMINATE</a></code></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-PASSTHROUGH">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-PASSTHROUGH">PASSTHROUGH</a></code></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-BackendTLS">BackendTLS</h6>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-mode">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-mode">mode</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode">Mode</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-subject_alt_names">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-subject_alt_names">subjectAltNames</a></code></div>
+<div class="type">string[]</div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-sni">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-sni">sni</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>SNI to present when initializing TLS to the backend. If unset, SNI
+will be set automatically based on host/authority header for SIMPLE
+and MUTUAL TLS modes.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-client_certificates">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-client_certificates">clientCertificates</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
+</div></td>
+<td>
+<p>Client certificates to present to the backend.
+Only used in MUTUAL mode.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-insecure_skip_verify">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-insecure_skip_verify">insecureSkipVerify</a></code></div>
+<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue</a></div>
+</div></td>
+<td>
+<p><code>insecureSkipVerify</code> specifies whether the proxy should skip
+verifying the
+CA signature and SAN for the server certificate corresponding to
+the host. The default value of this field is false.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-system_ca_certificates" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-system_ca_certificates">systemCaCertificates</a></code></div>
+<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue (oneof)</a></div>
+</div></td>
+<td>
+<p>Use system CA certificates to validate the backend&rsquo;s server
+certificate.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-ca_cert_ref" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-ca_cert_ref">caCertRef</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateAuthorityReference">CertificateAuthorityReference (oneof)</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode">Mode</h6>
+<section>
+<table class="enum-values">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-UNSPECIFIED">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
+<td>
+<p>Default value.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-SIMPLE">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-SIMPLE">SIMPLE</a></code></td>
+<td>
+<p>Enable TLS to the backend with simple verification of the server
+certificate. The trust chain will default to system CA
+certificates unless specified in other fields.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-MUTUAL">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-MUTUAL">MUTUAL</a></code></td>
+<td>
+<p>Enable mutual TLS. The trust chain will default to system CA
+certificates unless specified in other fields.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-PLATFORM_PROVIDED">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-PLATFORM_PROVIDED">PLATFORM_PROVIDED</a></code></td>
+<td>
+<p>Configures the implementation to use its built in TLS method if
+it has one (e.g. a service mesh&rsquo;s mTLS). Be aware that without
+properly configured TLS at the platform level, this field may
+lead to insecure connections.
+TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
+<code>options</code> field a better model?</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-INSECURE_DISABLE">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
+<td>
+<p>Disable TLS.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h4 id="Backend-Destination-Type">Type</h4>
+<section>
+<table class="enum-values">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-Type-TYPE_UNSPECIFIED">
+<td><code><a href="#Backend-Destination-Type-TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</a></code></td>
+<td>
+<p>Default value.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-Type-FQDN">
+<td><code><a href="#Backend-Destination-Type-FQDN">FQDN</a></code></td>
+<td>
+<p>FQDN represents a fully qualified domain name.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-Type-IP">
+<td><code><a href="#Backend-Destination-Type-IP">IP</a></code></td>
+<td>
+<p>IP represents an IP address.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-Type-KubernetesService">
+<td><code><a href="#Backend-Destination-Type-KubernetesService">KubernetesService</a></code></td>
+<td>
+<p>KubernetesService represents a Kubernetes Service.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h3 id="Backend-Extension">Extension</h3>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Extension-name">
+<td><div class="field"><div class="name"><code><a href="#Backend-Extension-name">name</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Extension-type">
+<td><div class="field"><div class="name"><code><a href="#Backend-Extension-type">type</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Extension-config">
+<td><div class="field"><div class="name"><code><a href="#Backend-Extension-config">config</a></code></div>
+<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct">Struct</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
