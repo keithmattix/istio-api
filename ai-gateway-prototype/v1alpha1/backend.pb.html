@@ -4,7 +4,7 @@ description: Prototype for WG AI Gateway's Backend resource.
 layout: protoc-gen-docs
 generator: protoc-gen-docs
 schema: k8s.networking.gateway.v1alpha1.Backend
-number_of_entries: 15
+number_of_entries: 12
 ---
 <h2 id="Backend">Backend</h2>
 <section>
@@ -181,29 +181,68 @@ received. If unset, default to <code>number</code>.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-frontend">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-frontend">frontend</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS">FrontendTLS</a></div>
+<tr id="Backend-Destination-ServicePort-TLS-mode">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-mode">mode</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-Mode">Mode</a></div>
 </div></td>
 <td>
-<p>optional TLS settings for connections from the in-cluster client
-to the bump in the wire (e.g. an egress gateway) sitting in front
-of this backend.</p>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-subject_alt_names">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-subject_alt_names">subjectAltNames</a></code></div>
+<div class="type">string[]</div>
+</div></td>
+<td>
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-sni">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-sni">sni</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>SNI to present when initializing TLS to the backend. If unset, SNI
+will be set automatically based on host/authority header for SIMPLE
+and MUTUAL TLS modes.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-backend">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-backend">backend</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-BackendTLS">BackendTLS</a></div>
+<tr id="Backend-Destination-ServicePort-TLS-client_certificates">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-client_certificates">clientCertificates</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
 </div></td>
 <td>
-<p>Configuration governing the communication to the upstream backend.
-If this Backend is behind an egress gateway, this field governs the
-TLS settings from the egress gateway to the backend. Deployments not
-using a gateway will use this field to configure TLS settings
-directly to the backend. Optional if frontend.mode is set to
-PASSTHROUGH.</p>
+<p>Client certificates to present to the backend.
+Only used in MUTUAL mode.</p>
 
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-insecure_skip_verify">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-insecure_skip_verify">insecureSkipVerify</a></code></div>
+<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue</a></div>
+</div></td>
+<td>
+<p><code>insecureSkipVerify</code> specifies whether the proxy should skip
+verifying the
+CA signature and SAN for the server certificate corresponding to
+the host. The default value of this field is false.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-system_ca_certificates" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-system_ca_certificates">systemCaCertificates</a></code></div>
+<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue (oneof)</a></div>
+</div></td>
+<td>
+<p>Use system CA certificates to validate the backend&rsquo;s server
+certificate.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-ca_bundle_ref" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-ca_bundle_ref">caBundleRef</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference (oneof)</a></div>
+</div></td>
+<td>
 </td>
 </tr>
 </tbody>
@@ -276,39 +315,9 @@ TODO: Define keys in the ConfigMap including CRLs</p>
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-TLS-FrontendTLS">FrontendTLS</h6>
+<h6 id="Backend-Destination-ServicePort-TLS-Mode">Mode</h6>
 <section>
-<table class="message-fields">
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-mode">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-mode">mode</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode">Mode</a></div>
-</div></td>
-<td>
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-frontend_certificate">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-frontend_certificate">frontendCertificate</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
-</div></td>
-<td>
-<p>Certificate presented to the in-cluster client when
-frontend.mode is TERMINATE.</p>
-
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<h6 id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode">Mode</h6>
-<section>
-<p>TODO: Add fields as needed.</p>
+<p>Configuration governing the TLS settings for communication to the upstream backend.</p>
 
 <table class="enum-values">
 <thead>
@@ -318,120 +327,15 @@ frontend.mode is TERMINATE.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-UNSPECIFIED">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
-<td>
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-TERMINATE">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-TERMINATE">TERMINATE</a></code></td>
-<td>
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-PASSTHROUGH">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-FrontendTLS-Mode-PASSTHROUGH">PASSTHROUGH</a></code></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<h6 id="Backend-Destination-ServicePort-TLS-BackendTLS">BackendTLS</h6>
-<section>
-<table class="message-fields">
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-mode">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-mode">mode</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode">Mode</a></div>
-</div></td>
-<td>
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-subject_alt_names">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-subject_alt_names">subjectAltNames</a></code></div>
-<div class="type">string[]</div>
-</div></td>
-<td>
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-sni">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-sni">sni</a></code></div>
-<div class="type">string</div>
-</div></td>
-<td>
-<p>SNI to present when initializing TLS to the backend. If unset, SNI
-will be set automatically based on host/authority header for SIMPLE
-and MUTUAL TLS modes.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-client_certificates">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-client_certificates">clientCertificates</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
-</div></td>
-<td>
-<p>Client certificates to present to the backend.
-Only used in MUTUAL mode.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-insecure_skip_verify">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-insecure_skip_verify">insecureSkipVerify</a></code></div>
-<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue</a></div>
-</div></td>
-<td>
-<p><code>insecureSkipVerify</code> specifies whether the proxy should skip
-verifying the
-CA signature and SAN for the server certificate corresponding to
-the host. The default value of this field is false.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-system_ca_certificates" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-system_ca_certificates">systemCaCertificates</a></code></div>
-<div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue (oneof)</a></div>
-</div></td>
-<td>
-<p>Use system CA certificates to validate the backend&rsquo;s server
-certificate.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-ca_bundle_ref" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-ca_bundle_ref">caBundleRef</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference (oneof)</a></div>
-</div></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<h6 id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode">Mode</h6>
-<section>
-<table class="enum-values">
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-UNSPECIFIED">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-UNSPECIFIED">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
 <td>
 <p>Default value.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-SIMPLE">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-SIMPLE">SIMPLE</a></code></td>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-SIMPLE">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-SIMPLE">SIMPLE</a></code></td>
 <td>
 <p>Enable TLS to the backend with simple verification of the server
 certificate. The trust chain will default to system CA
@@ -439,16 +343,23 @@ certificates unless specified in other fields.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-MUTUAL">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-MUTUAL">MUTUAL</a></code></td>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-MUTUAL">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-MUTUAL">MUTUAL</a></code></td>
 <td>
 <p>Enable mutual TLS. The trust chain will default to system CA
 certificates unless specified in other fields.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-PLATFORM_PROVIDED">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-PLATFORM_PROVIDED">PLATFORM_PROVIDED</a></code></td>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-PASSTHROUGH">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-PASSTHROUGH">PASSTHROUGH</a></code></td>
+<td>
+<p>Don&rsquo;t terminate the TLS and use SNI to route to the backend.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-PLATFORM_PROVIDED">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-PLATFORM_PROVIDED">PLATFORM_PROVIDED</a></code></td>
 <td>
 <p>Configures the implementation to use its built in TLS method if
 it has one (e.g. a service mesh&rsquo;s mTLS). Be aware that without
@@ -459,8 +370,8 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-BackendTLS-Mode-INSECURE_DISABLE">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
+<tr id="Backend-Destination-ServicePort-TLS-Mode-INSECURE_DISABLE">
+<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
 <td>
 <p>Disable TLS.</p>
 

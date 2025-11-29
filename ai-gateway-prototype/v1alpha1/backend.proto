@@ -104,82 +104,56 @@ message Backend {
             string file_path = 2;
           }
         }
-        message FrontendTLS {
-          // TODO: Add fields as needed.
-          enum Mode {
-            UNSPECIFIED = 0;
 
-            TERMINATE = 1;
-
-            PASSTHROUGH = 2;
-          }
-          Mode mode = 1;
-
-          // Certificate presented to the in-cluster client when
-          // frontend.mode is TERMINATE.
-          CertificateReference frontend_certificate = 2;
+        // Configuration governing the TLS settings for communication to the upstream backend.
+        enum Mode {
+          // Default value.
+          UNSPECIFIED = 0;
+          // Enable TLS to the backend with simple verification of the server
+          // certificate. The trust chain will default to system CA
+          // certificates unless specified in other fields.
+          SIMPLE = 1;
+          // Enable mutual TLS. The trust chain will default to system CA
+          // certificates unless specified in other fields.
+          MUTUAL = 2;
+          // Don't terminate the TLS and use SNI to route to the backend.
+          PASSTHROUGH = 3;
+          // Configures the implementation to use its built in TLS method if
+          // it has one (e.g. a service mesh's mTLS). Be aware that without
+          // properly configured TLS at the platform level, this field may
+          // lead to insecure connections.
+          // TODO(keithmattix): is this worth even having? Is Gateway API's
+          // `options` field a better model?
+          PLATFORM_PROVIDED = 4;
+          // Disable TLS.
+          INSECURE_DISABLE = 5;
         }
 
-        message BackendTLS {
-          enum Mode {
-            // Default value.
-            UNSPECIFIED = 0;
-            // Enable TLS to the backend with simple verification of the server
-            // certificate. The trust chain will default to system CA
-            // certificates unless specified in other fields.
-            SIMPLE = 1;
-            // Enable mutual TLS. The trust chain will default to system CA
-            // certificates unless specified in other fields.
-            MUTUAL = 2;
-            // Configures the implementation to use its built in TLS method if
-            // it has one (e.g. a service mesh's mTLS). Be aware that without
-            // properly configured TLS at the platform level, this field may
-            // lead to insecure connections.
-            // TODO(keithmattix): is this worth even having? Is Gateway API's
-            // `options` field a better model?
-            PLATFORM_PROVIDED = 3;
-            // Disable TLS.
-            INSECURE_DISABLE = 4;
-          }
+        Mode mode = 1;
+        repeated string subject_alt_names = 2;
+        // SNI to present when initializing TLS to the backend. If unset, SNI
+        // will be set automatically based on host/authority header for SIMPLE
+        // and MUTUAL TLS modes.
+        string sni = 3;
 
-          Mode mode = 1;
-          repeated string subject_alt_names = 2;
-          // SNI to present when initializing TLS to the backend. If unset, SNI
-          // will be set automatically based on host/authority header for SIMPLE
-          // and MUTUAL TLS modes.
-          string sni = 3;
+        // Client certificates to present to the backend.
+        // Only used in MUTUAL mode.
+        CertificateReference client_certificates = 4;
 
-          // Client certificates to present to the backend.
-          // Only used in MUTUAL mode.
-          CertificateReference client_certificates = 4;
+        // `insecureSkipVerify` specifies whether the proxy should skip
+        // verifying the
+        // CA signature and SAN for the server certificate corresponding to
+        // the host. The default value of this field is false.
+        google.protobuf.BoolValue insecure_skip_verify = 5;
 
-          // `insecureSkipVerify` specifies whether the proxy should skip
-          // verifying the
-          // CA signature and SAN for the server certificate corresponding to
-          // the host. The default value of this field is false.
-          google.protobuf.BoolValue insecure_skip_verify = 5;
+        // CA to validate the backend's server certificate.
+        oneof ca_certificates {
+          // Use system CA certificates to validate the backend's server
+          // certificate.
+          google.protobuf.BoolValue system_ca_certificates = 6;
 
-          // CA to validate the backend's server certificate.
-          oneof ca_certificates {
-            // Use system CA certificates to validate the backend's server
-            // certificate.
-            google.protobuf.BoolValue system_ca_certificates = 6;
-
-            CABundleReference ca_bundle_ref = 7;
-          }
+          CABundleReference ca_bundle_ref = 7;
         }
-
-        // optional TLS settings for connections from the in-cluster client
-        // to the bump in the wire (e.g. an egress gateway) sitting in front
-        // of this backend.
-        FrontendTLS frontend = 1;
-        // Configuration governing the communication to the upstream backend.
-        // If this Backend is behind an egress gateway, this field governs the
-        // TLS settings from the egress gateway to the backend. Deployments not
-        // using a gateway will use this field to configure TLS settings
-        // directly to the backend. Optional if frontend.mode is set to
-        // PASSTHROUGH.
-        BackendTLS backend = 2;
       }
 
       message ProtocolOptions {

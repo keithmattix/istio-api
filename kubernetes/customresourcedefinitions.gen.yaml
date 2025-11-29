@@ -476,140 +476,96 @@ spec:
                         tls:
                           description: Optional TLS settings for connections to this
                             port.
-                          properties:
-                            backend:
-                              description: Configuration governing the communication
-                                to the upstream backend.
-                              oneOf:
-                              - not:
-                                  anyOf:
-                                  - required:
-                                    - systemCaCertificates
-                                  - required:
-                                    - caBundleRef
+                          oneOf:
+                          - not:
+                              anyOf:
                               - required:
                                 - systemCaCertificates
                               - required:
                                 - caBundleRef
-                              properties:
-                                caBundleRef:
-                                  oneOf:
-                                  - not:
-                                      anyOf:
-                                      - required:
-                                        - credentialName
-                                      - required:
-                                        - filePath
+                          - required:
+                            - systemCaCertificates
+                          - required:
+                            - caBundleRef
+                          properties:
+                            caBundleRef:
+                              oneOf:
+                              - not:
+                                  anyOf:
                                   - required:
                                     - credentialName
                                   - required:
                                     - filePath
-                                  properties:
-                                    credentialName:
-                                      description: Reference to a Kubernetes ConfigMap
-                                        containing the CA certificate in PEM format.
-                                      type: string
-                                    filePath:
-                                      description: Reference to a file containing
-                                        the CA certificate in PEM format.
-                                      type: string
-                                  type: object
-                                clientCertificates:
-                                  description: Client certificates to present to the
-                                    backend.
-                                  oneOf:
-                                  - not:
-                                      anyOf:
-                                      - required:
-                                        - secretName
-                                      - required:
-                                        - filePath
-                                  - required:
-                                    - secretName
-                                  - required:
-                                    - filePath
-                                  properties:
-                                    filePath:
-                                      description: Reference to a file containing
-                                        the certificate in PEM format.
-                                      type: string
-                                    secretName:
-                                      description: Reference to a Kubernetes Secret
-                                        containing the certificate in PEM format.
-                                      type: string
-                                  type: object
-                                insecureSkipVerify:
-                                  description: '`insecureSkipVerify` specifies whether
-                                    the proxy should skip verifying the CA signature
-                                    and SAN for the server certificate corresponding
-                                    to the host.'
-                                  nullable: true
-                                  type: boolean
-                                mode:
-                                  description: |2-
-
-
-                                    Valid Options: SIMPLE, MUTUAL, PLATFORM_PROVIDED, INSECURE_DISABLE
-                                  enum:
-                                  - UNSPECIFIED
-                                  - SIMPLE
-                                  - MUTUAL
-                                  - PLATFORM_PROVIDED
-                                  - INSECURE_DISABLE
-                                  type: string
-                                sni:
-                                  description: SNI to present when initializing TLS
-                                    to the backend.
-                                  type: string
-                                subjectAltNames:
-                                  items:
-                                    type: string
-                                  type: array
-                                systemCaCertificates:
-                                  description: Use system CA certificates to validate
-                                    the backend's server certificate.
-                                  nullable: true
-                                  type: boolean
-                              type: object
-                            frontend:
-                              description: optional TLS settings for connections from
-                                the in-cluster client to the bump in the wire (e.g.
+                              - required:
+                                - credentialName
+                              - required:
+                                - filePath
                               properties:
-                                frontendCertificate:
-                                  description: Certificate presented to the in-cluster
-                                    client when frontend.mode is TERMINATE.
-                                  oneOf:
-                                  - not:
-                                      anyOf:
-                                      - required:
-                                        - secretName
-                                      - required:
-                                        - filePath
+                                credentialName:
+                                  description: Reference to a Kubernetes ConfigMap
+                                    containing the CA certificate in PEM format.
+                                  type: string
+                                filePath:
+                                  description: Reference to a file containing the
+                                    CA certificate in PEM format.
+                                  type: string
+                              type: object
+                            clientCertificates:
+                              description: Client certificates to present to the backend.
+                              oneOf:
+                              - not:
+                                  anyOf:
                                   - required:
                                     - secretName
                                   - required:
                                     - filePath
-                                  properties:
-                                    filePath:
-                                      description: Reference to a file containing
-                                        the certificate in PEM format.
-                                      type: string
-                                    secretName:
-                                      description: Reference to a Kubernetes Secret
-                                        containing the certificate in PEM format.
-                                      type: string
-                                  type: object
-                                mode:
-                                  description: |2-
-
-
-                                    Valid Options: TERMINATE, PASSTHROUGH
-                                  enum:
-                                  - UNSPECIFIED
-                                  - TERMINATE
-                                  - PASSTHROUGH
+                              - required:
+                                - secretName
+                              - required:
+                                - filePath
+                              properties:
+                                filePath:
+                                  description: Reference to a file containing the
+                                    certificate in PEM format.
+                                  type: string
+                                secretName:
+                                  description: Reference to a Kubernetes Secret containing
+                                    the certificate in PEM format.
                                   type: string
                               type: object
+                            insecureSkipVerify:
+                              description: '`insecureSkipVerify` specifies whether
+                                the proxy should skip verifying the CA signature and
+                                SAN for the server certificate corresponding to the
+                                host.'
+                              nullable: true
+                              type: boolean
+                            mode:
+                              description: |2-
+
+
+                                Valid Options: SIMPLE, MUTUAL, PASSTHROUGH, PLATFORM_PROVIDED, INSECURE_DISABLE
+                              enum:
+                              - UNSPECIFIED
+                              - SIMPLE
+                              - MUTUAL
+                              - PASSTHROUGH
+                              - PLATFORM_PROVIDED
+                              - INSECURE_DISABLE
+                              type: string
+                            sni:
+                              description: SNI to present when initializing TLS to
+                                the backend.
+                              type: string
+                            subjectAltNames:
+                              items:
+                                type: string
+                              type: array
+                            systemCaCertificates:
+                              description: Use system CA certificates to validate
+                                the backend's server certificate.
+                              nullable: true
+                              type: boolean
                           type: object
                       required:
                       - number
