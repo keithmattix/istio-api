@@ -440,6 +440,30 @@ spec:
                           description: The protocol exposed on the port.
                           maxLength: 256
                           type: string
+                        protocolOptions:
+                          description: Optional protocol-specific (excluding TLS)
+                            options for connections to this port.
+                          oneOf:
+                          - not:
+                              anyOf:
+                              - required:
+                                - mcp
+                          - required:
+                            - mcp
+                          properties:
+                            mcp:
+                              properties:
+                                path:
+                                  description: Path is the URL path of the MCP backend
+                                    for MCP traffic.
+                                  type: string
+                                version:
+                                  description: The version of the MCP protocol to
+                                    use.
+                                  maxLength: 256
+                                  type: string
+                              type: object
+                          type: object
                         targetPort:
                           description: The port number on the endpoint where the traffic
                             will be received.

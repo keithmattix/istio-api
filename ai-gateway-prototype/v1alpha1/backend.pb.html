@@ -4,7 +4,7 @@ description: Prototype for WG AI Gateway's Backend resource.
 layout: protoc-gen-docs
 generator: protoc-gen-docs
 schema: k8s.networking.gateway.v1alpha1.Backend
-number_of_entries: 13
+number_of_entries: 15
 ---
 <h2 id="Backend">Backend</h2>
 <section>
@@ -156,6 +156,15 @@ received. If unset, default to <code>number</code>.</p>
 </div></td>
 <td>
 <p>Optional TLS settings for connections to this port.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-protocol_options">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-protocol_options">protocolOptions</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-ProtocolOptions">ProtocolOptions</a></div>
+</div></td>
+<td>
+<p>Optional protocol-specific (excluding TLS) options for connections to this port.</p>
 
 </td>
 </tr>
@@ -454,6 +463,60 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 <td><code><a href="#Backend-Destination-ServicePort-TLS-BackendTLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
 <td>
 <p>Disable TLS.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h5 id="Backend-Destination-ServicePort-ProtocolOptions">ProtocolOptions</h5>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-ProtocolOptions-mcp" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-mcp">mcp</a></code></div>
+<div class="type"><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions">MCPOptions (oneof)</a></div>
+</div></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h6 id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions">MCPOptions</h6>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-version">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-version">version</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>The version of the MCP protocol to use.
+MUST be one of V2|V3.</p>
+
+</td>
+</tr>
+<tr id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-path">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-path">path</a></code></div>
+<div class="type">string</div>
+</div></td>
+<td>
+<p>Path is the URL path of the MCP backend for MCP traffic.
+A MCP backend may serve both MCP traffic and non-MCP traffic.
+If not specified, the default is /mcp.</p>
 
 </td>
 </tr>

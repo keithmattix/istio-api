@@ -181,6 +181,26 @@ message Backend {
         // PASSTHROUGH.
         BackendTLS backend = 2;
       }
+
+      message ProtocolOptions {
+        message MCPOptions {
+          // The version of the MCP protocol to use.
+          // MUST be one of V2|V3.
+          // +kubebuilder:validation:MaxLength=256
+          string version = 1;
+
+          // Path is the URL path of the MCP backend for MCP traffic.
+          // A MCP backend may serve both MCP traffic and non-MCP traffic.
+          // If not specified, the default is /mcp.
+          // +optional
+          // +kubebuilder:default:=/mcp
+          string path = 2;
+        }
+
+        oneof options {
+          MCPOptions mcp = 1;
+        }
+      }
       // A valid non-negative integer port number.
       // +kubebuilder:validation:XValidation:message="port must be between 1-65535",rule="0 < self && self <= 65535"
       uint32 number = 1 [(google.api.field_behavior) = REQUIRED];
@@ -203,6 +223,9 @@ message Backend {
 
       // Optional TLS settings for connections to this port.
       TLS tls = 5;
+
+      // Optional protocol-specific (excluding TLS) options for connections to this port.
+      ProtocolOptions protocol_options = 6;
     }
 
     Type type = 1;
