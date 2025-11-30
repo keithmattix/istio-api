@@ -538,14 +538,9 @@ type Backend_Destination_BackendPort_TLS struct {
 	// the host. The default value of this field is false.
 	InsecureSkipVerify *wrappers.BoolValue `protobuf:"bytes,5,opt,name=insecure_skip_verify,json=insecureSkipVerify,proto3" json:"insecure_skip_verify,omitempty"`
 	// CA to validate the backend's server certificate.
-	//
-	// Types that are valid to be assigned to CaCertificates:
-	//
-	//	*Backend_Destination_BackendPort_TLS_SystemCaCertificates
-	//	*Backend_Destination_BackendPort_TLS_CaBundleRef
-	CaCertificates isBackend_Destination_BackendPort_TLS_CaCertificates `protobuf_oneof:"ca_certificates"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	CaBundleRef   *Backend_Destination_BackendPort_TLS_CABundleReference `protobuf:"bytes,7,opt,name=ca_bundle_ref,json=caBundleRef,proto3" json:"ca_bundle_ref,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Backend_Destination_BackendPort_TLS) Reset() {
@@ -613,49 +608,11 @@ func (x *Backend_Destination_BackendPort_TLS) GetInsecureSkipVerify() *wrappers.
 	return nil
 }
 
-func (x *Backend_Destination_BackendPort_TLS) GetCaCertificates() isBackend_Destination_BackendPort_TLS_CaCertificates {
-	if x != nil {
-		return x.CaCertificates
-	}
-	return nil
-}
-
-func (x *Backend_Destination_BackendPort_TLS) GetSystemCaCertificates() *wrappers.BoolValue {
-	if x != nil {
-		if x, ok := x.CaCertificates.(*Backend_Destination_BackendPort_TLS_SystemCaCertificates); ok {
-			return x.SystemCaCertificates
-		}
-	}
-	return nil
-}
-
 func (x *Backend_Destination_BackendPort_TLS) GetCaBundleRef() *Backend_Destination_BackendPort_TLS_CABundleReference {
 	if x != nil {
-		if x, ok := x.CaCertificates.(*Backend_Destination_BackendPort_TLS_CaBundleRef); ok {
-			return x.CaBundleRef
-		}
+		return x.CaBundleRef
 	}
 	return nil
-}
-
-type isBackend_Destination_BackendPort_TLS_CaCertificates interface {
-	isBackend_Destination_BackendPort_TLS_CaCertificates()
-}
-
-type Backend_Destination_BackendPort_TLS_SystemCaCertificates struct {
-	// Use system CA certificates to validate the backend's server
-	// certificate.
-	SystemCaCertificates *wrappers.BoolValue `protobuf:"bytes,6,opt,name=system_ca_certificates,json=systemCaCertificates,proto3,oneof"`
-}
-
-type Backend_Destination_BackendPort_TLS_CaBundleRef struct {
-	CaBundleRef *Backend_Destination_BackendPort_TLS_CABundleReference `protobuf:"bytes,7,opt,name=ca_bundle_ref,json=caBundleRef,proto3,oneof"`
-}
-
-func (*Backend_Destination_BackendPort_TLS_SystemCaCertificates) isBackend_Destination_BackendPort_TLS_CaCertificates() {
-}
-
-func (*Backend_Destination_BackendPort_TLS_CaBundleRef) isBackend_Destination_BackendPort_TLS_CaCertificates() {
 }
 
 type Backend_Destination_BackendPort_ProtocolOptions struct {
@@ -966,31 +923,31 @@ var File_ai_gateway_prototype_v1alpha1_backend_proto protoreflect.FileDescriptor
 
 const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\n" +
-	"+ai-gateway-prototype/v1alpha1/backend.proto\x12%gateway.networking.k8s.istio.v1alpha1\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\x8d\x11\n" +
+	"+ai-gateway-prototype/v1alpha1/backend.proto\x12%gateway.networking.k8s.istio.v1alpha1\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\xa4\x10\n" +
 	"\aBackend\x12\\\n" +
 	"\vdestination\x18\x01 \x01(\v2:.gateway.networking.k8s.istio.v1alpha1.Backend.DestinationR\vdestination\x12X\n" +
 	"\n" +
 	"extensions\x18\x02 \x03(\v28.gateway.networking.k8s.istio.v1alpha1.Backend.ExtensionR\n" +
-	"extensions\x1a\xe3\x0e\n" +
+	"extensions\x1a\xfa\r\n" +
 	"\vDestination\x12S\n" +
 	"\x04type\x18\x01 \x01(\x0e2?.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.TypeR\x04type\x12\\\n" +
 	"\x05ports\x18\x02 \x03(\v2F.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPortR\x05ports\x12i\n" +
 	"\x04fqdn\x18\x03 \x01(\v2S.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.FullyQualifiedDomainNameH\x00R\x04fqdn\x1a6\n" +
 	"\x18FullyQualifiedDomainName\x12\x1a\n" +
-	"\bhostname\x18\x01 \x01(\tR\bhostname\x1a\xae\v\n" +
+	"\bhostname\x18\x01 \x01(\tR\bhostname\x1a\xc5\n" +
+	"\n" +
 	"\vBackendPort\x12\x1c\n" +
 	"\x06number\x18\x01 \x01(\rB\x04\xe2A\x01\x02R\x06number\x12\x1a\n" +
 	"\bprotocol\x18\x02 \x01(\tR\bprotocol\x12\\\n" +
 	"\x03tls\x18\x03 \x01(\v2J.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLSR\x03tls\x12\x81\x01\n" +
-	"\x10protocol_options\x18\x04 \x01(\v2V.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptionsR\x0fprotocolOptions\x1a\xb0\a\n" +
+	"\x10protocol_options\x18\x04 \x01(\v2V.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptionsR\x0fprotocolOptions\x1a\xc7\x06\n" +
 	"\x03TLS\x12c\n" +
 	"\x04mode\x18\x01 \x01(\x0e2O.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.ModeR\x04mode\x12*\n" +
 	"\x11subject_alt_names\x18\x02 \x03(\tR\x0fsubjectAltNames\x12\x10\n" +
 	"\x03sni\x18\x03 \x01(\tR\x03sni\x12\x90\x01\n" +
 	"\x13client_certificates\x18\x04 \x01(\v2_.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CertificateReferenceR\x12clientCertificates\x12L\n" +
-	"\x14insecure_skip_verify\x18\x05 \x01(\v2\x1a.google.protobuf.BoolValueR\x12insecureSkipVerify\x12R\n" +
-	"\x16system_ca_certificates\x18\x06 \x01(\v2\x1a.google.protobuf.BoolValueH\x00R\x14systemCaCertificates\x12\x82\x01\n" +
-	"\rca_bundle_ref\x18\a \x01(\v2\\.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CABundleReferenceH\x00R\vcaBundleRef\x1a`\n" +
+	"\x14insecure_skip_verify\x18\x05 \x01(\v2\x1a.google.protobuf.BoolValueR\x12insecureSkipVerify\x12\x80\x01\n" +
+	"\rca_bundle_ref\x18\a \x01(\v2\\.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CABundleReferenceR\vcaBundleRef\x1a`\n" +
 	"\x14CertificateReference\x12!\n" +
 	"\vsecret_name\x18\x01 \x01(\tH\x00R\n" +
 	"secretName\x12\x1d\n" +
@@ -1008,8 +965,7 @@ const file_ai_gateway_prototype_v1alpha1_backend_proto_rawDesc = "" +
 	"\x06MUTUAL\x10\x02\x12\x0f\n" +
 	"\vPASSTHROUGH\x10\x03\x12\x15\n" +
 	"\x11PLATFORM_PROVIDED\x10\x04\x12\x14\n" +
-	"\x10INSECURE_DISABLE\x10\x05B\x11\n" +
-	"\x0fca_certificates\x1a\xcf\x01\n" +
+	"\x10INSECURE_DISABLE\x10\x05\x1a\xcf\x01\n" +
 	"\x0fProtocolOptions\x12u\n" +
 	"\x03mcp\x18\x01 \x01(\v2a.gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptions.MCPOptionsH\x00R\x03mcp\x1a:\n" +
 	"\n" +
@@ -1070,14 +1026,13 @@ var file_ai_gateway_prototype_v1alpha1_backend_proto_depIdxs = []int32{
 	1,  // 8: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.mode:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.Mode
 	9,  // 9: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.client_certificates:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CertificateReference
 	13, // 10: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.insecure_skip_verify:type_name -> google.protobuf.BoolValue
-	13, // 11: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.system_ca_certificates:type_name -> google.protobuf.BoolValue
-	10, // 12: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.ca_bundle_ref:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CABundleReference
-	11, // 13: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptions.mcp:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptions.MCPOptions
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	10, // 11: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.ca_bundle_ref:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.TLS.CABundleReference
+	11, // 12: gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptions.mcp:type_name -> gateway.networking.k8s.istio.v1alpha1.Backend.Destination.BackendPort.ProtocolOptions.MCPOptions
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_ai_gateway_prototype_v1alpha1_backend_proto_init() }
@@ -1087,10 +1042,6 @@ func file_ai_gateway_prototype_v1alpha1_backend_proto_init() {
 	}
 	file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[1].OneofWrappers = []any{
 		(*Backend_Destination_Fqdn)(nil),
-	}
-	file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[5].OneofWrappers = []any{
-		(*Backend_Destination_BackendPort_TLS_SystemCaCertificates)(nil),
-		(*Backend_Destination_BackendPort_TLS_CaBundleRef)(nil),
 	}
 	file_ai_gateway_prototype_v1alpha1_backend_proto_msgTypes[6].OneofWrappers = []any{
 		(*Backend_Destination_BackendPort_ProtocolOptions_Mcp)(nil),

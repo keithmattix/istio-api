@@ -146,13 +146,7 @@ message Backend {
         google.protobuf.BoolValue insecure_skip_verify = 5;
 
         // CA to validate the backend's server certificate.
-        oneof ca_certificates {
-          // Use system CA certificates to validate the backend's server
-          // certificate.
-          google.protobuf.BoolValue system_ca_certificates = 6;
-
-          CABundleReference ca_bundle_ref = 7;
-        }
+        CABundleReference ca_bundle_ref = 7;
       }
 
       message ProtocolOptions {

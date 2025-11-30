@@ -463,19 +463,9 @@ spec:
                         tls:
                           description: Optional TLS settings for connections to this
                             port.
-                          oneOf:
-                          - not:
-                              anyOf:
-                              - required:
-                                - systemCaCertificates
-                              - required:
-                                - caBundleRef
-                          - required:
-                            - systemCaCertificates
-                          - required:
-                            - caBundleRef
                           properties:
                             caBundleRef:
+                              description: CA to validate the backend's server certificate.
                               oneOf:
                               - not:
                                   anyOf:
@@ -548,11 +538,6 @@ spec:
                               items:
                                 type: string
                               type: array
-                            systemCaCertificates:
-                              description: Use system CA certificates to validate
-                                the backend's server certificate.
-                              nullable: true
-                              type: boolean
                           type: object
                       required:
                       - number
