@@ -424,10 +424,6 @@ spec:
                   ports:
                     items:
                       properties:
-                        name:
-                          description: Label assigned to the port.
-                          maxLength: 256
-                          type: string
                         number:
                           description: A valid non-negative integer port number.
                           maximum: 4294967295
@@ -464,15 +460,6 @@ spec:
                                   type: string
                               type: object
                           type: object
-                        targetPort:
-                          description: The port number on the endpoint where the traffic
-                            will be received.
-                          maximum: 4294967295
-                          minimum: 0
-                          type: integer
-                          x-kubernetes-validations:
-                          - message: port must be between 1-65535
-                            rule: 0 < self && self <= 65535
                         tls:
                           description: Optional TLS settings for connections to this
                             port.
@@ -569,7 +556,6 @@ spec:
                           type: object
                       required:
                       - number
-                      - name
                       type: object
                     type: array
                   type:

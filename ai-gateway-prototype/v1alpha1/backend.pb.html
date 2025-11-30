@@ -55,7 +55,7 @@ number_of_entries: 12
 </tr>
 <tr id="Backend-Destination-ports">
 <td><div class="field"><div class="name"><code><a href="#Backend-Destination-ports">ports</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort">ServicePort[]</a></div>
+<div class="type"><a href="#Backend-Destination-BackendPort">BackendPort[]</a></div>
 </div></td>
 <td>
 </td>
@@ -96,9 +96,9 @@ service.</p>
 </tbody>
 </table>
 </section>
-<h4 id="Backend-Destination-ServicePort">ServicePort</h4>
+<h4 id="Backend-Destination-BackendPort">BackendPort</h4>
 <section>
-<p>ServicePort describes the properties of a specific port of a service.</p>
+<p>BackendPort describes the properties of a specific port of a service.</p>
 
 <table class="message-fields">
 <thead>
@@ -108,8 +108,8 @@ service.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-number">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-number">number</a></code></div>
+<tr id="Backend-Destination-BackendPort-number">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-number">number</a></code></div>
 <div class="type">uint32</div>
 <div class="required">Required</div>
 </div></td>
@@ -118,8 +118,8 @@ service.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-protocol">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-protocol">protocol</a></code></div>
+<tr id="Backend-Destination-BackendPort-protocol">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-protocol">protocol</a></code></div>
 <div class="type">string</div>
 </div></td>
 <td>
@@ -130,38 +130,18 @@ the destination without terminating the TLS connection.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-name">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-name">name</a></code></div>
-<div class="type">string</div>
-<div class="required">Required</div>
-</div></td>
-<td>
-<p>Label assigned to the port.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-target_port">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-target_port">targetPort</a></code></div>
-<div class="type">uint32</div>
-</div></td>
-<td>
-<p>The port number on the endpoint where the traffic will be
-received. If unset, default to <code>number</code>.</p>
-
-</td>
-</tr>
-<tr id="Backend-Destination-ServicePort-tls">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-tls">tls</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS">TLS</a></div>
+<tr id="Backend-Destination-BackendPort-tls">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-tls">tls</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-TLS">TLS</a></div>
 </div></td>
 <td>
 <p>Optional TLS settings for connections to this port.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-protocol_options">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-protocol_options">protocolOptions</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-ProtocolOptions">ProtocolOptions</a></div>
+<tr id="Backend-Destination-BackendPort-protocol_options">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-protocol_options">protocolOptions</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-ProtocolOptions">ProtocolOptions</a></div>
 </div></td>
 <td>
 <p>Optional protocol-specific (excluding TLS) options for connections to this port.</p>
@@ -171,7 +151,7 @@ received. If unset, default to <code>number</code>.</p>
 </tbody>
 </table>
 </section>
-<h5 id="Backend-Destination-ServicePort-TLS">TLS</h5>
+<h5 id="Backend-Destination-BackendPort-TLS">TLS</h5>
 <section>
 <table class="message-fields">
 <thead>
@@ -181,22 +161,22 @@ received. If unset, default to <code>number</code>.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-mode">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-mode">mode</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-Mode">Mode</a></div>
+<tr id="Backend-Destination-BackendPort-TLS-mode">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-mode">mode</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-TLS-Mode">Mode</a></div>
 </div></td>
 <td>
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-subject_alt_names">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-subject_alt_names">subjectAltNames</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-subject_alt_names">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-subject_alt_names">subjectAltNames</a></code></div>
 <div class="type">string[]</div>
 </div></td>
 <td>
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-sni">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-sni">sni</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-sni">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-sni">sni</a></code></div>
 <div class="type">string</div>
 </div></td>
 <td>
@@ -206,9 +186,9 @@ and MUTUAL TLS modes.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-client_certificates">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-client_certificates">clientCertificates</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</a></div>
+<tr id="Backend-Destination-BackendPort-TLS-client_certificates">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-client_certificates">clientCertificates</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-TLS-CertificateReference">CertificateReference</a></div>
 </div></td>
 <td>
 <p>Client certificates to present to the backend.
@@ -216,8 +196,8 @@ Only used in MUTUAL mode.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-insecure_skip_verify">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-insecure_skip_verify">insecureSkipVerify</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-insecure_skip_verify">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-insecure_skip_verify">insecureSkipVerify</a></code></div>
 <div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue</a></div>
 </div></td>
 <td>
@@ -228,8 +208,8 @@ the host. The default value of this field is false.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-system_ca_certificates" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-system_ca_certificates">systemCaCertificates</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-system_ca_certificates" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-system_ca_certificates">systemCaCertificates</a></code></div>
 <div class="type"><a href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#boolvalue">BoolValue (oneof)</a></div>
 </div></td>
 <td>
@@ -238,9 +218,9 @@ certificate.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-ca_bundle_ref" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-ca_bundle_ref">caBundleRef</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference (oneof)</a></div>
+<tr id="Backend-Destination-BackendPort-TLS-ca_bundle_ref" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-ca_bundle_ref">caBundleRef</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-TLS-CABundleReference">CABundleReference (oneof)</a></div>
 </div></td>
 <td>
 </td>
@@ -248,7 +228,7 @@ certificate.</p>
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-TLS-CertificateReference">CertificateReference</h6>
+<h6 id="Backend-Destination-BackendPort-TLS-CertificateReference">CertificateReference</h6>
 <section>
 <table class="message-fields">
 <thead>
@@ -258,8 +238,8 @@ certificate.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-CertificateReference-secret_name" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateReference-secret_name">secretName</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-CertificateReference-secret_name" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-CertificateReference-secret_name">secretName</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -270,8 +250,8 @@ CRLs, etc.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-CertificateReference-file_path" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CertificateReference-file_path">filePath</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-CertificateReference-file_path" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-CertificateReference-file_path">filePath</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -282,7 +262,7 @@ CRLs, etc.</p>
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-TLS-CABundleReference">CABundleReference</h6>
+<h6 id="Backend-Destination-BackendPort-TLS-CABundleReference">CABundleReference</h6>
 <section>
 <table class="message-fields">
 <thead>
@@ -292,8 +272,8 @@ CRLs, etc.</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-CABundleReference-credential_name" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CABundleReference-credential_name">credentialName</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-CABundleReference-credential_name" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-CABundleReference-credential_name">credentialName</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -303,8 +283,8 @@ TODO: Define keys in the ConfigMap including CRLs</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-CABundleReference-file_path" class="oneof">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-TLS-CABundleReference-file_path">filePath</a></code></div>
+<tr id="Backend-Destination-BackendPort-TLS-CABundleReference-file_path" class="oneof">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-TLS-CABundleReference-file_path">filePath</a></code></div>
 <div class="type">string (oneof)</div>
 </div></td>
 <td>
@@ -315,7 +295,7 @@ TODO: Define keys in the ConfigMap including CRLs</p>
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-TLS-Mode">Mode</h6>
+<h6 id="Backend-Destination-BackendPort-TLS-Mode">Mode</h6>
 <section>
 <p>Configuration governing the TLS settings for communication to the upstream backend.</p>
 
@@ -327,15 +307,15 @@ TODO: Define keys in the ConfigMap including CRLs</p>
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-UNSPECIFIED">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-UNSPECIFIED">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-UNSPECIFIED">UNSPECIFIED</a></code></td>
 <td>
 <p>Default value.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-SIMPLE">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-SIMPLE">SIMPLE</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-SIMPLE">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-SIMPLE">SIMPLE</a></code></td>
 <td>
 <p>Enable TLS to the backend with simple verification of the server
 certificate. The trust chain will default to system CA
@@ -343,23 +323,23 @@ certificates unless specified in other fields.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-MUTUAL">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-MUTUAL">MUTUAL</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-MUTUAL">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-MUTUAL">MUTUAL</a></code></td>
 <td>
 <p>Enable mutual TLS. The trust chain will default to system CA
 certificates unless specified in other fields.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-PASSTHROUGH">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-PASSTHROUGH">PASSTHROUGH</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-PASSTHROUGH">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-PASSTHROUGH">PASSTHROUGH</a></code></td>
 <td>
 <p>Don&rsquo;t terminate the TLS and use SNI to route to the backend.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-PLATFORM_PROVIDED">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-PLATFORM_PROVIDED">PLATFORM_PROVIDED</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-PLATFORM_PROVIDED">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-PLATFORM_PROVIDED">PLATFORM_PROVIDED</a></code></td>
 <td>
 <p>Configures the implementation to use its built in TLS method if
 it has one (e.g. a service mesh&rsquo;s mTLS). Be aware that without
@@ -370,8 +350,8 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-TLS-Mode-INSECURE_DISABLE">
-<td><code><a href="#Backend-Destination-ServicePort-TLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
+<tr id="Backend-Destination-BackendPort-TLS-Mode-INSECURE_DISABLE">
+<td><code><a href="#Backend-Destination-BackendPort-TLS-Mode-INSECURE_DISABLE">INSECURE_DISABLE</a></code></td>
 <td>
 <p>Disable TLS.</p>
 
@@ -380,7 +360,7 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 </tbody>
 </table>
 </section>
-<h5 id="Backend-Destination-ServicePort-ProtocolOptions">ProtocolOptions</h5>
+<h5 id="Backend-Destination-BackendPort-ProtocolOptions">ProtocolOptions</h5>
 <section>
 <table class="message-fields">
 <thead>
@@ -390,9 +370,9 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-ProtocolOptions-mcp" class="oneof oneof-start">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-mcp">mcp</a></code></div>
-<div class="type"><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions">MCPOptions (oneof)</a></div>
+<tr id="Backend-Destination-BackendPort-ProtocolOptions-mcp" class="oneof oneof-start">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-ProtocolOptions-mcp">mcp</a></code></div>
+<div class="type"><a href="#Backend-Destination-BackendPort-ProtocolOptions-MCPOptions">MCPOptions (oneof)</a></div>
 </div></td>
 <td>
 </td>
@@ -400,7 +380,7 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 </tbody>
 </table>
 </section>
-<h6 id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions">MCPOptions</h6>
+<h6 id="Backend-Destination-BackendPort-ProtocolOptions-MCPOptions">MCPOptions</h6>
 <section>
 <table class="message-fields">
 <thead>
@@ -410,8 +390,8 @@ TODO(keithmattix): is this worth even having? Is Gateway API&rsquo;s
 </tr>
 </thead>
 <tbody>
-<tr id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-version">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-version">version</a></code></div>
+<tr id="Backend-Destination-BackendPort-ProtocolOptions-MCPOptions-version">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-ProtocolOptions-MCPOptions-version">version</a></code></div>
 <div class="type">string</div>
 </div></td>
 <td>
@@ -420,8 +400,8 @@ MUST be one of V2|V3.</p>
 
 </td>
 </tr>
-<tr id="Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-path">
-<td><div class="field"><div class="name"><code><a href="#Backend-Destination-ServicePort-ProtocolOptions-MCPOptions-path">path</a></code></div>
+<tr id="Backend-Destination-BackendPort-ProtocolOptions-MCPOptions-path">
+<td><div class="field"><div class="name"><code><a href="#Backend-Destination-BackendPort-ProtocolOptions-MCPOptions-path">path</a></code></div>
 <div class="type">string</div>
 </div></td>
 <td>

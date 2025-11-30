@@ -78,8 +78,8 @@ message Backend {
       string hostname = 1;
     }
 
-    // ServicePort describes the properties of a specific port of a service.
-    message ServicePort {
+    // BackendPort describes the properties of a specific port of a service.
+    message BackendPort {
       message TLS {
         message CertificateReference {
           oneof cert {
@@ -104,7 +104,6 @@ message Backend {
             string file_path = 2;
           }
         }
-
         // Configuration governing the TLS settings for communication to the upstream backend.
         enum Mode {
           // Default value.
@@ -186,25 +185,16 @@ message Backend {
       // +kubebuilder:validation:MaxLength=256
       string protocol = 2;
 
-      // Label assigned to the port.
-      // +kubebuilder:validation:MaxLength=256
-      string name = 3 [(google.api.field_behavior) = REQUIRED];
-
-      // The port number on the endpoint where the traffic will be
-      // received. If unset, default to `number`.
-      // +kubebuilder:validation:XValidation:message="port must be between 1-65535",rule="0 < self && self <= 65535"
-      uint32 target_port = 4;
-
       // Optional TLS settings for connections to this port.
-      TLS tls = 5;
+      TLS tls = 3;
 
       // Optional protocol-specific (excluding TLS) options for connections to this port.
-      ProtocolOptions protocol_options = 6;
+      ProtocolOptions protocol_options = 4;
     }
 
     Type type = 1;
 
-    repeated ServicePort ports = 2;
+    repeated BackendPort ports = 2;
 
     oneof dest {
       // FQDN represents a fully qualified domain name.
